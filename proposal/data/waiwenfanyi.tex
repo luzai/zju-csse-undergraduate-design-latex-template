@@ -87,7 +87,7 @@ CUHK-SYSU是一个大尺度行人搜索的数据集，包含18184张图片，每
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=.45\linewidth,keepaspectratio]{data/waiwenfanyi/fig2.png}
+\includegraphics[width=.35\linewidth,keepaspectratio]{data/waiwenfanyi/fig2.png}
 \caption{黑色线条表示两个新人局部的对齐：加粗表示对最短路贡献大。在（a-c）中行人有着相同的id，而在（d）中行人有着不同的id。}
 \label{figure:fig2}
 \end{figure}
@@ -101,8 +101,19 @@ CUHK-SYSU是一个大尺度行人搜索的数据集，包含18184张图片，每
 
 在CUHK03数据集上，在不使用rerank的情况下HydraPlus-Net获得了91.8\%的rank1，而我们的对齐再识别为91.9\%。再次强调，我们的测试候选集为200张，我们的测试协议更加困难。同时在使用rerank的情况下，我们的方法获得了96.1\%的rank-1。
 
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=.85\linewidth,keepaspectratio]{data/waiwenfanyi/compare.png}
+  \caption{左图：在Market1501数据集上的性能比较，右图：在CUHK03数据集上的性能比较}
+  \label{figure:compare}
+\end{figure}
+
 \subsection{总结}
-在这篇文章中，我们阐明了隐式局部特征对齐对提升全局特征学习的巨大作用。这一惊奇的结果给予了我们重要启发：端到端的学习需要结构先验，否则就是盲学。
+在这篇文章中，我们阐明了隐式局部特征对齐对提升全局特征学习的巨大作用。这一惊奇的结果给予了我们重要启发：1). 端到端的学习需要结构先验，否则就是盲学。2). 尽管我们的方法在Market1501和cuhk03数据集上超过了人类的表现，但是机器想要在更广泛的领域战胜人类仍然有很长的路要走，比如在验证集中我们发现了一些低级的错误。
 
-尽管我们的方法在Market1501和cuhk03数据集上超过了人类的表现，但是机器想要在更广泛的领域战胜人类仍然有很长的路要走，比如在验证集中我们发现了一些非常低级的错误。
-
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=.4\linewidth,keepaspectratio]{data/waiwenfanyi/bad.png}
+  \caption{在验证集中发现的一些低级错误}
+  \label{figure:bad}
+\end{figure}
