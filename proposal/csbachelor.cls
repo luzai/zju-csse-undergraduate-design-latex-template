@@ -104,7 +104,7 @@
 
 \RequirePackage{enumitem}
 \setlist{noitemsep}
-
+\RequirePackage{xCJKnumb}
 \let\oldthebibliography\thebibliography
 \let\endoldthebibliography\endthebibliography
 \renewenvironment{thebibliography}[1]{\begin{oldthebibliography}{#1}\setlength{\itemsep}{0em}\setlength{\parskip}{0em}}{\end{oldthebibliography}}
@@ -174,7 +174,9 @@
 \setcounter{secnumdepth}{4}
 
 % 张海
-\renewcommand*{\thesection}{\arabic{section}.}
+\renewcommand*{\thesection}{\xCJKnumber{\arabic{section}}、}
+\renewcommand\thesubsection{\arabic{subsection}.}
+\renewcommand\thesubsubsection{(\arabic{subsubsection})}
 \renewcommand*{\thefigure}{\arabic{figure}}
 \renewcommand*{\thetable}{\arabic{table}}
 
