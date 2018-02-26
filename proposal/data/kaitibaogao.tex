@@ -133,7 +133,7 @@
 }
 
 % 按文章长度需要启用
-% \ifthenelse{\equal{\zjuside}{T}}{\newpage\mbox{}\thispagestyle{empty}}{}
+\ifthenelse{\equal{\zjuside}{T}}{\newpage\mbox{}\thispagestyle{empty}}{}
 
 \chapter{开题报告}
 
@@ -235,21 +235,18 @@ TriHard、Part-reid等方法都有开源代码，我们会基于这些工作进�
 \end{enumerate}
 
 {
-\renewcommand{\chapter}[2]{\section*{#2}\addcontentsline{toc}{section}{#2}}
+% \renewcommand{\section}[2]{\section*{#2}\addcontentsline{toc}{section}{#2}}
 \section{参考文献}
 }
 
 \begin{itemize}
 \item [{[}1{]}] Y. Liu, J.Yan, andW. Ouyang. Quality aware network for set to set recognition. arXiv preprint arXiv:1704.03373, 2017
-\item [{[}2{]}]: X. Liu, H. Zhao, M. Tian, L. Sheng, J. Shao, S. Yi, J. Yan, and X. Wang. Hydraplus-net: Attentive deep features for pedestrian analysis. 2017.
-\item [{[}3{]}]: Zhong, Z., Zheng, L., Cao, D., \& Li, S. (2017). Re-ranking Person Re-identification with k-reciprocal Encoding. \url{http://arxiv.org/abs/1701.08398}
-\item [{[}4{]}]: Zheng, L., Yang, Y., \& Hauptmann, A. G. (2016). Person Re-identification: Past, Present and Future. \url{http://arxiv.org/abs/1610.02984}
-\item [{[}5{]}]: Wang, J., Wang, B., Zhang, P., \& Zhang, D. (2017). IRGAN : A Minimax Game for Unifying Generative and Discriminative Information Retrieval Models.
+\item [{[}2{]}] X. Liu, H. Zhao, M. Tian, L. Sheng, J. Shao, S. Yi, J. Yan, and X. Wang. Hydraplus-net: Attentive deep features for pedestrian analysis. 2017.
+\item [{[}3{]}] Zhong, Z., Zheng, L., Cao, D., \& Li, S. (2017). Re-ranking Person Re-identification with k-reciprocal Encoding. \url{http://arxiv.org/abs/1701.08398}
+\item [{[}4{]}] Zheng, L., Yang, Y., \& Hauptmann, A. G. (2016). Person Re-identification: Past, Present and Future. \url{http://arxiv.org/abs/1610.02984}
+\item [{[}5{]}] Wang, J., Wang, B., Zhang, P., \& Zhang, D. (2017). IRGAN : A Minimax Game for Unifying Generative and Discriminative Information Retrieval Models.
 \end{itemize}
 
 
-% \bibliographystyle{data/gbt7714-2005}
-% {
-% \renewcommand{\chapter}[2]{\section*{#2}\addcontentsline{toc}{section}{#2}}
-% \bibliography{data/kaitibaogao}
-% }
+% 按文章长度需要启用
+\ifthenelse{\equal{\zjuside}{T}}{\newpage\mbox{}\thispagestyle{empty}}{}
