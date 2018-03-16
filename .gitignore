@@ -10,3 +10,6 @@
 *.swp
 *.toc
 *.xdv
+*.nav
+*.snm
+*.vrb

@@ -3,7 +3,7 @@ main:
 	biber main
 	xelatex  -interaction=nonstopmode -halt-on-error main
 	xelatex  -interaction=nonstopmode -halt-on-error main
-
+	cp main.pdf proposal.xinglu.pdf
 clean:
 	# git clean -dfX
 	rm -rf *.nav *.toc *.aux *.log *.snm *.out

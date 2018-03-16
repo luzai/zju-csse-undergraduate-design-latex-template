@@ -9,7 +9,7 @@
 % \usetheme{Singapore}
 % \usetheme{Hannover}
 \usepackage{pgfpages}
-% \setbeameroption{hide notes} % Only slides
+\setbeameroption{hide notes} % Only slides
 % \setbeameroption{show only notes} % Only notes
 % \setbeameroption{show notes on second screen=right} % Both
 
@@ -102,20 +102,20 @@
 \definecolor{cdocblue}{rgb}{0.25,0.35,0.75}
 \definecolor{cdark}{rgb}{0.95,1.0,1.0}
 \lstset{
-	language=R,
+	language=python,
 	numbers=left,
 	numberstyle=\tiny\color{black},
-	keywordstyle=\color{cpurple}\consolas,
-	commentstyle=\color{cgreen}\consolas,
-	stringstyle=\color{cred}\consolas,
-	frame=single,
-	escapeinside=``,
-	xleftmargin=1em,
-	xrightmargin=1em, 
+	keywordstyle=\color{cpurple},
+	commentstyle=\color{cgreen},
+	stringstyle=\color{cred},
+	% frame=single,
+	% escapeinside=``,
+	% xleftmargin=1em,
+	% xrightmargin=1em, 
 	backgroundcolor=\color{cdark},
-	aboveskip=1em,
-	breaklines=true,
-	tabsize=3
+	% aboveskip=1em,
+	% breaklines=true,
+	% tabsize=3
 } 
 
 \makeatletter
@@ -160,7 +160,7 @@
 % Add a date and possibly the name of the event to the slides
 %  - again first a short version to be shown at the bottom of each slide
 %  - second the full date and event name for the title slide
-\date[\today]{}
+\date[\today]{2018年3月16日}
 
 \begin{document}
 
@@ -189,21 +189,6 @@
 
 \section{背景介绍与研究内容}
 
-% \begin{frame}{test}
-% 	\begin{columns}
-
-% 		\column{0.49\textwidth}
-% 		This is a text in first column.
-% 		$$E=mc^2$$
-
-% 		\column{0.49\textwidth}
-% 		This text will be in the second column
-% 		and on a second tought this is a nice looking
-% 		layout in some cases.
-% 	\end{columns}
-% \end{frame}
-
-
 \begin{frame}
 	{背景介绍}
 	\begin{itemize}
@@ -217,8 +202,10 @@
 	\note{
 		随着监控摄像机的大规模安装，摄像机网络已广泛布控于各种公共场合中。
 		
-		利用摄像机网络,我们可以追踪同一行人的轨迹. 但是面对多
-		路监控和海量的视频数据，监控人员很容易产生疲惫和应接不暇的状况，我们需要智能视频分析技术弥补人类的不足.
+		利用摄像机网络,我们可以追踪同一行人的轨迹. 
+		
+		但是面对多
+		路监控和海量的视频数据，监控人员很容易 疲惫和应接不暇 ，我们需要智能分析技术 来完成海量的工作
 	}
 \end{frame}
 
@@ -228,14 +215,17 @@
 	\begin{block}{前提假设}
 		\begin{itemize}
 			\item 检测器已经成功检测
-			\item 再识别{\bf 不包括}检测步骤
+			\item \ie, 再识别{\bf 不包括}检测步骤
 		\end{itemize}
 	% 输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. \cite{zheng2016person},\cite{Zheng2017person}
 	\end{block}
 	\begin{figure}
 		\includegraphics[width=1\linewidth]{2018-03-07-19-55-19.png}
 	\end{figure}
-	\note{目前学者们普遍采用一个简化版本的定义. 这个版本的简化之处在于,他的前提是检测器已经将从图像中检测出行人, 也就是说整个系统的输入是右图的检测后的图片}
+	\note{
+		目前学术界几乎所有论文都采用这样的前提假设。行人再识别不包括行人检测的步骤。
+		我们不讨论行人再识别的定义是否有问题，先遵循普遍接受的定义
+	}
 \end{frame}
 		
 
@@ -254,8 +244,11 @@
 		\includegraphics[width=0.72\linewidth]{2018-03-12-09-57-11.png}
 	\end{columns}
 	\note{
-		目前从图像检索的角度来定义, 行人再识别是这样的一个过称...
-	比如左图是询问图片, 右图是测试阶段的图像集合
+		行人再识别 是图像检索的子问题 , 他是这样的一个过称：
+		
+		输入询问图片，如左图所示，在右图测试图像集合中寻找最为匹配的行人图片
+
+		匹配是指达到两点要求：1 两幅图属于同一个人，2 跨摄像头
 	}
 \end{frame}
 
@@ -267,13 +260,11 @@
 	\begin{figure}
 		\includegraphics[width=0.9\linewidth]{2018-03-11-22-56-05.png}
 	\end{figure}
-	\note{右侧第一行是模型的预测结果,第二行是预期的结果. 
-	由于询问图片较难, 模型的top-5均预测错误. 
-		除了图形检索, 行人再识别还有很多与之相关的领域, 细粒度物体识别 fine-grained classification/少示例大规模分类 few shot extreme classification. 
+	\note{
+		为了说明再识别的困难，我挑选了模型预测的失败案例。
 		
-		细粒度物体识别与再识别的联系是,想要区分不同的行人,只能将注意力集中在某些有鉴别力的部位. 
-		
-		少实例大规模分类与再识别的联系是,再识别有海量的id,每个id的训练样本很少,图片质量通常不好}
+		左侧上方为预测结果，下防为期望的结果。由于询问蹄片特则不明显，测试集合存在大量干扰背景图片，模型的5个预测结果，军错误。背景干扰包括自信车、草地
+	}
 \end{frame}
 
 
@@ -287,53 +278,13 @@
 	\end{description}
 	
 	\note{
+		除 背景干扰， 
 		
-		the learning of comprehensive features of pedestrians for fine-grained tasks remains an open problem.
-
-		 Desired features for open-set FR are expected to satisfy
-		the criterion that the maximal intra-class distance is smaller than the minimal inter-class distance under a certain metric space. This
-		 由于行人的非刚性运动、检测器的误差、摄像头的
-		视角变化,同一行人的不同图片往往存在严重的空间失配(Spatial Misalignment);行
-		人没有可靠的生物特征,只能从属性、语义层面的特征加以区分;未标定的摄像机参
-		数、巨大的时空跨度,这些都进一步增加了再识别的难度;同时现有的数据集规模相
-		对较小,不存在 ImageNet 或者 MegaFace 这样的大规模、可以泛化迁移(Transfer)到
-		任意子领域(domain)的数据集。这导致数据集间存在较大偏差(domain bias/domain
-		shift),从一个数据集到另一个数据集,
-		模型的性能通常都会下降。
+		再识别的难点还有 遮挡、明暗、姿态倒置的行人外观巨大改变，以及由于检测器误差导致的空间适配。
 	}
 \end{frame}
 
 \section{技术路线与设计方案}
-
-% \begin{frame}\frametitle{Test frame}
-%     \begin{columns}
-%         \column{.5\textwidth}
-%           A figure
-%         \column{.5\textwidth}
-%           \begin{minipage}[c][.6\textheight][c]{\linewidth}
-%             \begin{itemize}
-%                 \item Item 1
-%                 \item Item 2
-%             \end{itemize}
-%           \end{minipage}
-%       \end{columns}
-% \end{frame}
-% \begin{frame}\frametitle{Test frame 2}
-%     \begin{columns}
-%         \column{.5\textwidth}
-%           A figure
-%         \column{.5\textwidth}
-%           \begin{minipage}[c][.6\textheight][c]{\linewidth}
-%             \begin{itemize}
-%                 \item Another item 1
-%                 \item Another item 2
-%                 \item This list is longer
-%                 \item Than the previous one
-%                 \item was
-%             \end{itemize}
-%           \end{minipage}
-%       \end{columns}
-% \end{frame}
 
 \begin{frame}
 	{相关领域}
@@ -350,7 +301,8 @@
 		\includegraphics[width=\textwidth]{2018-03-15-21-58-38.png}
 
 	\end{columns}
-	{\bf 关键词：} 图像检索、度量学习、表征学习、不均衡学习 ......
+	{\bf 关键词：} 图像检索, 度量学习, 表征学习. 不均衡学习, \textit{etc.}
+	\note{要了解我们的技术路线,先看一看相关领域,密切相关的领域包括 few-shot extreme classification, openset face recoginition, fine grained classification,我们会从相关领域的文献,借鉴思路}
 \end{frame}
 
 \begin{frame}
@@ -360,7 +312,14 @@
 		\item {\textcolor{blue}{Verification}} 转化为两幅图片的验证问题/Verification: \cite{Yaqing2016}
 		\item {\textcolor{blue}{Embedding}} 直接学习低维嵌入特征: 在三元损失的基础上强掉难样本的重要性\cite{hermans2017defense}, 全局+局部特征\cite{zhang2017align}, 注意力机制\cite{DBLP:journals/corr/ZhaoLWZ17} 
 	\end{itemize}
-	\note{主流方法分为三类,采用直接学习embedding的方法,首先介绍采用的baseline方法}
+	\note{对于行人再识别这一领域主流方法分为三类,
+	
+	第一类转化为分类问题方法缺点在于样本不丰富情况下鉴别能力不足,
+
+	第二类转化为验证问题缺点在于计算量巨大
+
+	我们采用直接学习嵌入特征的方法,首先简单介绍我们的基础模型
+}
 \end{frame}
 
 \begin{frame}
@@ -376,12 +335,10 @@
 	\begin{figure}
 		\centering
 		\includegraphics[width=\textwidth]{2018-03-15-21-40-06.png}			
-	\end{figure}	
+	\end{figure}
+
 	\end{columns} 
-	
-	
-	% \includegraphics[width=0.7\textwidth]{2018-03-12-10-31-31.png}
-	\note{resnet50}
+	\note{只需看主干支路即可,从图片输入,特征提取,挖掘难样本,到计算损失, 特征提取采用resnet}
 \end{frame}
 
 \begin{frame}
@@ -398,6 +355,9 @@
 		\centering
 		\includegraphics[width=\textwidth]{2018-03-12-14-59-27.png}
 	\end{figure}
+	\note{我们要实现的目标是,属于同一类的距离尽量接近,如图所示冷色掉表示距离小.
+	也就诉说,目标是从左侧的杂乱无章到右侧的分清类别. 那么为什么要进行难样本挖掘, 因为整个距离矩阵不是所有元素都需要更新的,我们要用最快的速度获得最好的性能. 
+	}
 \end{columns} 
 
 	\note{分别是什么}
@@ -410,10 +370,12 @@
 		\item 难样本挖掘
 		\item {\bf 计算损失,反向传播}
 		\begin{equation} 
-			L_{tri}=\frac{1}{PK}\sum_{a \in batch} \left( \max_{p \in A} d_{a,p} -  \min_{n \in B} d_{a,n} +\alpha \right)_+
+			L_{tri}=\frac{1}{PK}\sum_{a \in batch} \left(
+				 \textcolor{blue}{\max_{p \in A} d_{a,p}} - 
+				  \textcolor{green}{\min_{n \in B} d_{a,n}} +\alpha \right)_+
 		\end{equation}
 	\end{itemize}
-	\note{最后计算损失,反向传播}
+	\note{在之前的步骤中,距离矩阵每一行会选择处两个样本对,计算相对距离,从而计算损失,反向传播}
 \end{frame}
 
 \begin{frame}
@@ -426,25 +388,32 @@
 	\note{随机擦除,random erasing, 重排序 rerank, 使用}
 \end{frame}
 
+% \begin{frame}
+% 	{设计方案}
+% 	\begin{itemize}
+% 		\item  多尺度注意力特征
+% 		\item 根据关系图在全局挖掘难样本
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}
-	{多尺度注意力特征}
+	{方案:多尺度注意力特征}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.78\textwidth]{2018-03-12-11-10-16.png} \\ 
 		\includegraphics[width=0.89\textwidth]{2018-03-12-11-10-04.png} 
 	\end{figure}
-	\note{也许是比较小的改进}
+	\note{上策为基础模块,瞎扯为总体框架. 基础模块具有两个功能,1 通道级别调整权重实行注意力机制, 2 提取本阶段分辨率下的全局特征表示,总体框架中将各个阶段特征表示拼接 值得注意的是,我们几乎没有增加计算量}
 \end{frame}
 
 \begin{frame}
-	{根据关系图在全局挖掘难样本} 
+	{方案:根据关系图在全局挖掘难样本} 
 	\begin{figure}
 		\centering 
 		\includegraphics[width=0.9\textwidth]{2018-03-12-11-21-00.png}	
 		\caption{不同的形成batch的方法:\textcolor{blue}{左图:}一般的三元损失随机选取三元组,\textcolor{blue}{中图:}\cite{hermans2017defense}在保证一个类至少两个样本的情况下随机选取,\textcolor{blue}{右图:}我们希望在形成batch时难样本就不是随机选取的}
 	\end{figure}
-	\note{全局挖掘,原来的图是讲什么,我们的方法}
+	\note{全局挖掘,利用历史损失函数体攻的信息,在形成batch的时候,选取有正对性的难样本 同样我们也没有增加计算量 }
 \end{frame}
 
 
@@ -463,29 +432,12 @@
 	\end{tabular}
 \end{table}
 	\note{
-		很难说方向一定可行	
+		前两阶段已经完成,
+
+		很难说方向一定可行,但是之后会找这两个方向开展	
 	}
 \end{frame}
 
-\begin{frame}{现阶段实验}
-\begin{table}
-	\centering
-	\caption{数据集与评估协议的统计信息}
-	\label{table:dataset}
-	\begin{tabular}{llllll}
-		\toprule
-		Dataset    & CUHK03 & Market1501 & CUHK01  & DukeMTMC & VIPeR \\
-		\midrule
-		identities & 1,467  & 1,501      & 971     & 1,812    & 632   \\
-		images     & 13,164 & 32,668     & 3,884   & 36,411   & 1,264 \\
-		views      & 2      & 6          & 2       & 8        & 2     \\
-		train IDs  & 1,367  & 751        & 871/485 & 702      & 316   \\
-		test IDs   & 100    & 751        & 100/486 & 1110     & 316   \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-\note{需要在各个数据集上验证}
-\end{frame}
 
 \begin{frame}{现阶段实验}
 	\begin{table}
@@ -518,7 +470,8 @@
 			\bottomrule
 			\end{tabular}
 	\end{table}
-	\note{只进行了初步实验,并不是都有效果的}
+	\note{在寒假我进行了初步实验,有的效果好,有的效果一般. 期中97.59,已经超过了人类表现,据我了解目前只有两篇文章做到这一点. 从效果来说,挖掘难样本具有可行性,改改网络结构效果不明显. 但是也不仅仅是效果,需要阅读文献,提出新的想法
+	行人再识别发展很快,除去传统数据集,今年提出了新的问题和新的数据集,因此,我还有很多工作要做}
 \end{frame}
 
 
@@ -534,5 +487,43 @@
 	\chuhao Thank you! %\fontspec{LHANDW.TTF}
 \end{frame}
 
+
+
+\begin{frame}{现阶段实验}
+	\begin{table}
+		\centering
+		\caption{数据集与评估协议的统计信息}
+		\label{table:dataset}
+		\begin{tabular}{llllll}
+			\toprule
+			Dataset    & CUHK03 & Market1501 & CUHK01  & DukeMTMC & VIPeR \\
+			\midrule
+			identities & 1,467  & 1,501      & 971     & 1,812    & 632   \\
+			images     & 13,164 & 32,668     & 3,884   & 36,411   & 1,264 \\
+			views      & 2      & 6          & 2       & 8        & 2     \\
+			train IDs  & 1,367  & 751        & 871/485 & 702      & 316   \\
+			test IDs   & 100    & 751        & 100/486 & 1110     & 316   \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	\note{行人再识别发展很快,除去传统数据集,今年提出了新的问题和新的数据集,因此,我还有很多工作要做}
+\end{frame}
+
+\begin{frame}[fragile]
+	
+\begin{lstlisting}
+cmc_configs = {
+'cuhk03': dict(separate_camera_set=True,
+  single_gallery_shot=True,
+  first_match_break=False),
+'market1501': dict(separate_camera_set=False,#h
+  single_gallery_shot=False,  # hard
+  first_match_break=True),
+'allshots': dict(separate_camera_set=False,#h
+  single_gallery_shot=False,  # hard
+  first_match_break=False),
+}
+\end{lstlisting}
+\end{frame}
 
 \end{document}
