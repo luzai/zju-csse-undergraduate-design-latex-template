@@ -1,5 +1,9 @@
 main:
-	latexmk -xelatex main
+	# latexmk -xelatex main
+	xelatex  -interaction=nonstopmode -halt-on-error main
+	bibtex main
+	xelatex  -interaction=nonstopmode -halt-on-error main
+	xelatex  -interaction=nonstopmode -halt-on-error main
 
 clean:
 	git clean -dfX

@@ -210,20 +210,20 @@
 %\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \fancypagestyle{toc}{
   \fancyhf{}
-  \fancyhead[C]{\songti\xiaowu 浙江大学本科毕业设计~开题报告}
+  \fancyhead[C]{\songti\xiaowu 浙江大学信息与电子工程学院本科毕业设计~开题报告}
 }
 \fancypagestyle{kaitibaogao}{
   \fancyhf{}
   %\fancyhead[L]{\xiaowu\songti 浙江大学计算机科学与技术学院本科毕业设计}
   %\fancyhead[R]{\xiaowu\songti\leftmark}
-  \fancyhead[C]{\songti\xiaowu 浙江大学本科毕业设计~开题报告}
+  \fancyhead[C]{\songti\xiaowu 浙江大学信息与电子工程学院本科毕业设计~开题报告}
   \fancyfoot[C]{\songti\xiaowu \thepage}
 }
 \fancypagestyle{waiwenfanyi}{
   \fancyhf{}
   %\fancyhead[L]{\xiaowu\songti 浙江大学计算机科学与技术学院本科毕业设计}
   %\fancyhead[R]{\xiaowu\songti\leftmark}
-  \fancyhead[C]{\songti\xiaowu 浙江大学本科毕业设计~外文翻译}
+  \fancyhead[C]{\songti\xiaowu 浙江大学信息与电子工程学院本科毕业设计~外文翻译}
   \fancyfoot[C]{\songti\xiaowu \thepage}
 }
 %\fancyhf{}

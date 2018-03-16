@@ -31,8 +31,13 @@
 \pgfdeclareimage[width=\paperwidth,height=\paperheight]{bg}{background}
 \setbeamertemplate{background}{\pgfuseimage{bg}}
 
-\usepackage[backend=biber]{biblatex}
-% \usepackage{biblatex}
+
+% \usepackage[round]{natbib}
+% \bibliographystyle{plainnat}
+% \bibliographystyle{apalike} 
+% \usepackage[backend=biber]{biblatex}
+\usepackage{biblatex}
+
 \bibliography{./ref.bib}
 \addbibresource{ref.bib}
 
@@ -220,11 +225,15 @@
 
 \begin{frame}
 	{行人再识别定义}
-	\begin{block}{行人再识别/Person Re-identification/ReID}
-	输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. \cite{zheng2016person},\cite{Zheng2017person}
+	\begin{block}{前提假设}
+		\begin{itemize}
+			\item 检测器已经成功检测
+			\item 再识别{\bf 不包括}检测步骤
+		\end{itemize}
+	% 输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. \cite{zheng2016person},\cite{Zheng2017person}
 	\end{block}
 	\begin{figure}
-		\includegraphics[width=0.9\linewidth]{2018-03-07-19-55-19.png}
+		\includegraphics[width=1\linewidth]{2018-03-07-19-55-19.png}
 	\end{figure}
 	\note{目前学者们普遍采用一个简化版本的定义. 这个版本的简化之处在于,他的前提是检测器已经将从图像中检测出行人, 也就是说整个系统的输入是右图的检测后的图片}
 \end{frame}
@@ -233,7 +242,7 @@
 
 \begin{frame}
 	{行人再识别定义}
-	\begin{block}{行人再识别/Person Re-identification/ReID}
+	\begin{block}{行人再识别 (Person Re-identification, \textit{aka.} ReID)}
 		输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. 
 	\end{block}
 	\begin{columns}
@@ -252,7 +261,7 @@
 
 \begin{frame}
 	{行人再识别定义}
-	\begin{block}{行人再识别/Person Re-identification/ReID}
+	\begin{block}{行人再识别 (Person Re-identification, \textit{aka.} ReID)}
 		输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. 
 	\end{block}
 	\begin{figure}
@@ -296,6 +305,54 @@
 
 \section{技术路线与设计方案}
 
+% \begin{frame}\frametitle{Test frame}
+%     \begin{columns}
+%         \column{.5\textwidth}
+%           A figure
+%         \column{.5\textwidth}
+%           \begin{minipage}[c][.6\textheight][c]{\linewidth}
+%             \begin{itemize}
+%                 \item Item 1
+%                 \item Item 2
+%             \end{itemize}
+%           \end{minipage}
+%       \end{columns}
+% \end{frame}
+% \begin{frame}\frametitle{Test frame 2}
+%     \begin{columns}
+%         \column{.5\textwidth}
+%           A figure
+%         \column{.5\textwidth}
+%           \begin{minipage}[c][.6\textheight][c]{\linewidth}
+%             \begin{itemize}
+%                 \item Another item 1
+%                 \item Another item 2
+%                 \item This list is longer
+%                 \item Than the previous one
+%                 \item was
+%             \end{itemize}
+%           \end{minipage}
+%       \end{columns}
+% \end{frame}
+
+\begin{frame}
+	{相关领域}
+
+	\begin{columns}
+
+		\column{.4\textwidth}
+		\textcolor{blue}{少样本大规模分类} \\
+		\includegraphics[width=.9\textwidth]{2018-03-15-21-58-23.png} \\
+		\textcolor{blue}{开放环境人脸识别}\\
+		\includegraphics[width=.97\textwidth]{2018-03-15-22-15-55.png}
+		\column{.6\textwidth}
+		\textcolor{blue}{细粒度物体识别} \\
+		\includegraphics[width=\textwidth]{2018-03-15-21-58-38.png}
+
+	\end{columns}
+	{\bf 关键词：} 图像检索、度量学习、表征学习、不均衡学习 ......
+\end{frame}
+
 \begin{frame}
 	{相关工作}
 	\begin{itemize}
@@ -308,33 +365,41 @@
 
 \begin{frame}
 	{基本方法:训练} 
+	\begin{columns}
+	\column{0.45\textwidth} 
 	\begin{itemize}
-		\item 特征提取
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.82\textwidth]{2018-03-12-10-25-28.png}			
-		\end{figure}		
-		% \item 难样本挖掘
-		% \item 计算损失,反向传播
+		\item \textbf{特征提取}
+		\item 难样本挖掘
+		\item 计算损失,反向传播
 	\end{itemize}
+	\column{0.55\textwidth}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{2018-03-15-21-40-06.png}			
+	\end{figure}	
+	\end{columns} 
+	
+	
 	% \includegraphics[width=0.7\textwidth]{2018-03-12-10-31-31.png}
 	\note{resnet50}
 \end{frame}
 
 \begin{frame}
-	{基本方法:训练} 
+	{基本方法:训练}
+	\begin{columns}
+		\column{0.4\textwidth}
 	\begin{itemize}
 		\item 特征提取
-		% \begin{figure}
-		% 	\includegraphics[width=0.7\textwidth]{2018-03-12-10-25-28.png}			
-		% \end{figure}		
-		\item 难样本挖掘
-		% \item 计算损失,反向传播
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.65\textwidth]{2018-03-12-14-59-27.png}
-		\end{figure}
+		\item {\bf 难样本挖掘}
+		\item 计算损失,反向传播
 	\end{itemize}
+	\column{0.6\textwidth}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{2018-03-12-14-59-27.png}
+	\end{figure}
+\end{columns} 
+
 	\note{分别是什么}
 \end{frame}
 
@@ -343,7 +408,7 @@
 	\begin{itemize}
 		\item 特征提取
 		\item 难样本挖掘
-		\item 计算损失,反向传播
+		\item {\bf 计算损失,反向传播}
 		\begin{equation} 
 			L_{tri}=\frac{1}{PK}\sum_{a \in batch} \left( \max_{p \in A} d_{a,p} -  \min_{n \in B} d_{a,n} +\alpha \right)_+
 		\end{equation}
@@ -354,9 +419,9 @@
 \begin{frame}
 	{基本方法:测试} 
 	\begin{itemize}
-		\item 数据增强(随机擦除/多次截取), 特征提取
+		\item 数据增强({\bf 随机擦除/多次截取}), 特征提取
 		\item 计算欧式或余弦距离矩阵
-		\item 重排序\cite{zhong2017reranking}, 预测最终排名
+		\item {\bf 重排序}\cite{zhong2017reranking}, 预测最终排名
 	\end{itemize}
 	\note{随机擦除,random erasing, 重排序 rerank, 使用}
 \end{frame}
@@ -458,7 +523,8 @@
 
 
 \begin{frame}[t, allowframebreaks]
-\frametitle{References}
+
+\frametitle{参考文献}
 
 
 \printbibliography
