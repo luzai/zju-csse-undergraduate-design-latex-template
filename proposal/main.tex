@@ -44,10 +44,18 @@
 
 {  \include{data/yaoqiu} }
 
-
-\tableofcontents
-\thispagestyle{toc}
-%\chaptermark{目录}
+{
+\pagestyle{empty}
+{
+	\renewcommand{\thispagestyle}[1]{}
+	\tableofcontents
+}
+\clearpage
+\pagestyle{plain}
+% \tableofcontents
+% \thispagestyle{toc}
+% \chaptermark{目录}
+}
 
 \mainmatter
 
@@ -71,9 +79,10 @@
 	\include{data/waiwenfanyi}
 }
 
+\includepdf[scale=0.8,pages=1,pagecommand=\chapter{外文原文}]{data/waiwenyuanwen.pdf}
+\includepdf[pages=2-]{data/waiwenyuanwen.pdf}
+% \includepdf{data/waiwenyuanwen.pdf}
 \backmatter
-
-\includepdf[pages=-]{data/waiwenyuanwen.pdf}
 
 {  \include{data/kaohe} }
 

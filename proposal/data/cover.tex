@@ -16,7 +16,7 @@
 \renewcommand{\baselinestretch}{1.8}
 \heiti\erhao\bfseries
 \centering
-本~~科~~生~~毕~~业~~设~~计 \\
+本~~科~~生~~毕~~业~~论~~文 \\
 文献综述和开题报告 \par
 }
 
@@ -27,6 +27,9 @@
 \end{center}
 
 \vspace{3em}
+% 下划线定义
+\def\zjuu[#1]#2{%
+  \underline{\hbox to #1{\hfill#2\hfil}}}
 
 {
 	\renewcommand{\baselinestretch}{1.65}
@@ -37,6 +40,21 @@
 	{\kaiti\bfseries 年级与专业} \; \underline{\makebox[13em]{\songti\zjugrade~~\zjumajor}} \\ \vspace{0.9em}
 	{\kaiti\bfseries 所在学院} \; \underline{\makebox[14em]{\songti\zjucollegec}} \par
 }
+
+% \begin{figure}[h]
+% 	\begin{minipage}{\linewidth}
+% 	\raggedleft
+% 	% \centering 
+% 	\sanhao
+% 	  \begin{tabular*}{.8\linewidth}{ll}
+% 		{\kaiti\bfseries 姓名与学号}  & \zjuu[180pt]{\songti\zjuauthornamec~~\zjuauthorid}   \\
+% 		{\kaiti\bfseries 指导教师} & \zjuu[180pt]{\songti\zjumentorc}   \\
+% 		{\kaiti\bfseries 年级与专业} & \zjuu[180pt]{\songti\zjugrade~~\zjumajor} \\
+% 		{\kaiti\bfseries 所在学院} & \zjuu[180pt]{\songti\zjucollegec}
+% 	  \end{tabular*}
+% 	\end{minipage}
+%   \end{figure}
+
 }
 
 \ifthenelse{\equal{\zjuside}{T}}{\newpage\mbox{}\thispagestyle{empty}}{}
