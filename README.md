@@ -1,20 +1,17 @@
-# ZJU CS/SE Undergraduate Design LaTeX Template
+# ZJU CS/SE Undergraduate Design 
 
-> 浙江大学计算机科学与技术、软件工程专业本科毕业设计 LaTeX 模板
+> 浙江大学信息工程专业本科毕业设计 LaTeX 
 
-Updated to the new style requirements in 2017.
+Updated to the new style requirements in 2018. 
 
-## Dependencies
+## Dependence
 
-Arch Linux:
+texlive-full (2017)
 
-```bash
-sudo pacman -S texlive-most texlive-langchinese
-```
 
 ## Fonts
 
-Execute `./install-fonts.sh`, which copies and installs fonts from a Windows partition.
+<https://github.com/dolbydu/font> is enough.
 
 ## Build
 
