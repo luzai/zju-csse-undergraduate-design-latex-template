@@ -79,9 +79,28 @@
 	\include{data/waiwenfanyi}
 }
 
-\includepdf[scale=0.8,pages=1,pagecommand=\chapter{外文原文}]{data/waiwenyuanwen.pdf}
-\includepdf[pages=2-]{data/waiwenyuanwen.pdf}
-% \includepdf{data/waiwenyuanwen.pdf}
+{
+\newpage
+\pagestyle{empty} %\renewcommand\thepage{}
+\chapter[外文原文]{}
+\vspace{-9em}
+\begin{flushleft}
+	\xiaoer\bfseries
+	附：原稿
+\end{flushleft}
+% \begin{center}
+% \includegraphics[width=\textwidth]{data/waiwenyuanwen-page-001.jpg}	
+% \end{center}
+\begin{minipage}[b]{\linewidth}
+	\includepdf[scale=.95,pages=1,pagecommand={}]{data/waiwenyuanwen.pdf}
+\end{minipage}
+
+\includepdf[scale=.95,pages=2-, pagecommand={}]{data/waiwenyuanwen.pdf}
+% \begin{center}
+% \includegraphics[page=2-,scale=0.9]{data/waiwenyuanwen.pdf}
+% \end{center}
+
+}
 \backmatter
 
 {  \include{data/kaohe} }

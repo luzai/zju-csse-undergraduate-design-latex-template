@@ -134,7 +134,9 @@
 
 \bibliographystyle{data/gbt7714-2005}
 {
-	\renewcommand{\chapter}[2]{\section*{#2}\addcontentsline{toc}{section}{#2}}
+	\renewcommand{\chapter}[2]{\section{#2}
+	% \addcontentsline{toc}{section}{#2}
+	}
 	\bibliography{data/kaitibaogao}
 }
 
