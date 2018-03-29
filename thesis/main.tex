@@ -1,5 +1,10 @@
-% \documentclass[twoside,numberorder]{csbachelor}
+% !TeX encoding = utf8
+% !TeX program = xelatex
+% !BIB program = bibtex
+% !TeX spellcheck = zh-cn
+
 \documentclass[oneside,numberorder]{csbachelor}
+% \documentclass[twoside,numberorder]{csbachelor}
 
 %==============================================================
 %==============================================================
@@ -38,18 +43,25 @@
 \begin{document}
 
 %==============================================================
-%==============================================================
-\zjutitle{深度行人再识别学习}{Deep Person Re-Identification Learning}
+% \zjutitle{深度行人再识别学习}{Deep Person ReIdentification Learning}
+% \zjuauthor{王兴路}{Xinglu Wang}{3140102282}
+% \zjumentor{李英明}{Yingming Li}
+% \zjuinfo{2014级}{信息工程}
+% \zjucollege{信息与电子工程学院}{College of Information Science and Electronic Engineering}
+% \zjudate{2018-02-25}{}
+
+\zjutitle{深度行人再识别学习}
+{Deep Person ReIdentification Learning}
 % 作者：{中文姓名}{英文}{学号}
 \zjuauthor{王兴路}{Xinglu Wang}{3140102282}
 % 指导教师：{导师中文名}{导师英文名}
 \zjumentor{李英明}{Yingming Li}
 % 个人信息：{年级}{专业名称}
-\zjuinfo{2014级}{信息工程}
+\zjuinfo{2014级}{信息工程}{Information Engineering}
 % 学院信息：{学院中文}{学院英文}
-\zjucollege{信息与电子工程学院}{College of Information Science and Electronic Engineering}
-% 日期：{Submitted Date}
-%\zjudate{2018-02-25}
+\zjucollege{信息与电子工程学院}{College of Information Science \& Electronic Engineering}
+% % 日期：{提交日期}{Submitted Date}
+% \zjudate{2017 年 6 月 5 日}{June 5, 2017}
 %==============================================================
 
 {
@@ -57,11 +69,11 @@
 
 	\include{data/cover-zh}
 	\cleardoublepage
-	\include{data/cover-en}
-	\cleardoublepage
+	% \include{data/cover-en}
+	% \cleardoublepage
 
-	\include{data/agreement}
-	\cleardoublepage
+	% \include{data/agreement}
+	% \cleardoublepage
 }
 
 {
@@ -73,7 +85,7 @@
 	\makeatother
 
 	\include{data/abstract-zh}
-	\include{data/abstract-en}
+	% \include{data/abstract-en}
 
 	\tableofcontents
 	\newpage
@@ -96,13 +108,15 @@
 	\cleardoublepage
 	\include{data/chapter-4}
 	\cleardoublepage
-
+  \include{data/chapter-5}
+  \cleardoublepage
+  
 	\renewcommand{\thechapter}{}
 	\include{data/bibliography}
 	\cleardoublepage
 
-	\include{data/acknowledgment}
-	\cleardoublepage
+	% \include{data/acknowledgment}
+	% \cleardoublepage
 }
 
 {
@@ -110,11 +124,11 @@
 
 	\pagestyle{empty}
 
-	\include{data/assignment}
-	\cleardoublepage
+	% \include{data/assignment}
+	% \cleardoublepage
 
-	\include{data/assessment}
-	\cleardoublepage
+	% \include{data/assessment}
+	% \cleardoublepage
 }
 
 \end{document}
