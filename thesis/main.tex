@@ -1,4 +1,5 @@
-\documentclass[twoside,numberorder]{csbachelor}
+% \documentclass[twoside,numberorder]{csbachelor}
+\documentclass[oneside,numberorder]{csbachelor}
 
 %==============================================================
 %==============================================================
@@ -18,9 +19,19 @@
 \tikzset{>=latex}
 
 % 一些全局工具的定义
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
+% \DeclareMathOperator*{\argmin}{arg\,min}
+% \DeclareMathOperator*{\argmax}{arg\,max}
+\usepackage{xspace}
+\providecommand{\eg}{\textit{e.g.}\@\xspace}
+\providecommand{\ie}{\textit{i.e.}\@\xspace}
+\providecommand{\st}{\textit{s.t.}\@\xspace}
+\providecommand{\wrt}{\textit{w.r.t.}\@\xspace}
+\providecommand{\etal}{\textit{et al}\@\xspace}
 
+\newcommand{\argmin}{\mathop{\mathrm{argmin}}}
+\newcommand{\argmax}{\mathop{\mathrm{argmax}}}
+\newcommand{\softmax}{\mathop{\mathrm{softmax}}}
+\newcommand{\id}{{\mathop{\mathrm{id}}}}
 %==============================================================
 %==============================================================
 
@@ -28,86 +39,82 @@
 
 %==============================================================
 %==============================================================
-
-  % 论文题目：{中文}{英文}
-  \zjutitle{标题}
-           {Title}
-  % 作者：{中文姓名}{英文}{学号}
-  \zjuauthor{姓名}{Name}{313XXXXXXXX}
-  % 指导教师：{导师中文名}{导师英文名}
-  \zjumentor{导师姓名}{Supervisor name}
-  % 个人信息：{年级}{专业名称}
-  \zjuinfo{2013级}{计算机科学与技术}{Computer Science and Technology}
-  % 学院信息：{学院中文}{学院英文}
-  \zjucollege{计算机科学与技术学院}{College of Computer Science and Technology}
-  % 日期：{提交日期}{Submitted Date}
-  \zjudate{2017 年 6 月 5 日}{June 5, 2017}
-
+\zjutitle{深度行人再识别学习}{Deep Person Re-Identification Learning}
+% 作者：{中文姓名}{英文}{学号}
+\zjuauthor{王兴路}{Xinglu Wang}{3140102282}
+% 指导教师：{导师中文名}{导师英文名}
+\zjumentor{李英明}{Yingming Li}
+% 个人信息：{年级}{专业名称}
+\zjuinfo{2014级}{信息工程}
+% 学院信息：{学院中文}{学院英文}
+\zjucollege{信息与电子工程学院}{College of Information Science and Electronic Engineering}
+% 日期：{Submitted Date}
+%\zjudate{2018-02-25}
 %==============================================================
 
-  {
-    \pagestyle{empty}
+{
+	\pagestyle{empty}
 
-    \include{data/cover-zh}
-    \cleardoublepage
-    \include{data/cover-en}
-    \cleardoublepage
+	\include{data/cover-zh}
+	\cleardoublepage
+	\include{data/cover-en}
+	\cleardoublepage
 
-    \include{data/agreement}
-    \cleardoublepage
-  }
+	\include{data/agreement}
+	\cleardoublepage
+}
 
-  {
-    \frontmatter
+{
+	\frontmatter
 
-    \pagestyle{frontmatter}
-    \makeatletter
-      \let\ps@plain\ps@frontmatter
-    \makeatother
+	\pagestyle{frontmatter}
+	\makeatletter
+	\let\ps@plain\ps@frontmatter
+	\makeatother
 
-    \include{data/abstract-zh}
-    \include{data/abstract-en}
+	\include{data/abstract-zh}
+	\include{data/abstract-en}
 
-    \tableofcontents
-    \newpage
-    \thispagestyle{empty}
-  }
+	\tableofcontents
+	\newpage
+	\thispagestyle{empty}
+}
 
-  {
-    \mainmatter
+{
+	\mainmatter
 
-    \pagestyle{mainmatter}
-    \makeatletter
-      \let\ps@plain\ps@mainmatter
-    \makeatother
+	\pagestyle{mainmatter}
+	\makeatletter
+	\let\ps@plain\ps@mainmatter
+	\makeatother
 
-    \include{data/chapter-1}
-    \cleardoublepage
-    \include{data/chapter-2}
-    \cleardoublepage
-    \include{data/chapter-3}
-    \cleardoublepage
-    \include{data/chapter-4}
-    \cleardoublepage
+	\include{data/chapter-1}
+	\cleardoublepage
+	\include{data/chapter-2}
+	\cleardoublepage
+	\include{data/chapter-3}
+	\cleardoublepage
+	\include{data/chapter-4}
+	\cleardoublepage
 
-    \renewcommand{\thechapter}{}
-    \include{data/bibliography}
-    \cleardoublepage
+	\renewcommand{\thechapter}{}
+	\include{data/bibliography}
+	\cleardoublepage
 
-    \include{data/acknowledgment}
-    \cleardoublepage
-  }
+	\include{data/acknowledgment}
+	\cleardoublepage
+}
 
-  {
-    \backmatter
+{
+	\backmatter
 
-    \pagestyle{empty}
+	\pagestyle{empty}
 
-    \include{data/assignment}
-    \cleardoublepage
+	\include{data/assignment}
+	\cleardoublepage
 
-    \include{data/assessment}
-    \cleardoublepage
-  }
+	\include{data/assessment}
+	\cleardoublepage
+}
 
 \end{document}

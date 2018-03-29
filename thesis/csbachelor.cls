@@ -215,14 +215,16 @@
 \renewcommand{\sectionmark}[1]{}
 \fancypagestyle{frontmatter}{
   \fancyhf{}
-  \fancyhead[L]{\xiaowu\songti 浙江大学计算机科学与技术学院本科毕业设计报告}
-  \fancyhead[R]{\xiaowu\songti \rightmark}
+  \renewcommand{\headrulewidth}{0pt}
+  % \fancyhead[L]{\xiaowu\songti 浙江大学计算机科学与技术学院本科毕业设计报告}
+  % \fancyhead[R]{\xiaowu\songti \rightmark}
   \fancyfoot[C]{\songti\xiaowu \thepage}
 }
 \fancypagestyle{mainmatter}{
   \fancyhf{}
-  \fancyhead[L]{\xiaowu\songti 浙江大学计算机科学与技术学院本科毕业设计报告}
-  \fancyhead[R]{\xiaowu\songti \thechapter \hspace{1em} \rightmark}
+  \renewcommand{\headrulewidth}{0pt}
+  % \fancyhead[L]{\xiaowu\songti 浙江大学计算机科学与技术学院本科毕业设计报告}
+  % \fancyhead[R]{\xiaowu\songti \thechapter \hspace{1em} \rightmark}
   \fancyfoot[C]{\songti\xiaowu \thepage}
 }
 \newcommand{\contentsformat}{\heiti\sanhao\bfseries}
