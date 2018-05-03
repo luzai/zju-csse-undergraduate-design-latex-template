@@ -1,14 +1,15 @@
 main:
 	# latexmk -xelatex -latexoption=' -interaction=nonstopmode -halt-on-error' main
 	xelatex  -interaction=nonstopmode -halt-on-error main
-	bibtex main
+	biber main
 	xelatex  -interaction=nonstopmode -halt-on-error main
-	xelatex  -interaction=nonstopmode -halt-on-error main
-
+	xelatex  -interaction=nonstopmode -halt-on-error -syntex=1 main
+simple:
+	xelatex  -interaction=nonstopmode -halt-on-error -syntex=1 main
 clean:
 	# latexmk -bibtex -c 
-	rm -f main.bbl main.nlo main.xdv 
+	rm -f *.log *.aux *.synctex.gz *.toc *.bbl *.bcf *.blg *.out *.xml *.ptc
 	git clean -dfX
 
-watch: main.tex data/kaitibaogao.tex data/kaitibaogao.bib data/waiwenfanyi.tex data/kaohe.tex data/yaoqiu.tex
+watch: main.tex 
 	fswatch -o $^ | xargs -n1 -I{} make

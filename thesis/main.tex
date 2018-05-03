@@ -1,137 +1,41 @@
-% !TeX encoding = utf8
-% !TeX program = xelatex
-% !BIB program = bibtex
-% !TeX spellcheck = zh-cn
+%!TEX program = xelatex
+%!TEX encoding = UTF-8
 
-\documentclass[oneside,numberorder]{csbachelor}
-% \documentclass[twoside,numberorder]{csbachelor}
-
-%==============================================================
-%==============================================================
-
+\documentclass[fangfont=FangSong,heifont=SimHei]{zju-thesis}
 \usepackage{url}
-\usepackage{subfigure}
-
-% 张海：其他引用
-\usepackage[hidelinks]{hyperref}
-\setlength{\LTpre}{1em}
-\setlength{\LTpost}{1em}
-
-\usepackage{tikz}
-\usetikzlibrary{arrows,backgrounds,fit,shapes}
-\tikzstyle{layer} = [draw, dashed]
-\tikzstyle{block} = [draw, rectangle, minimum height=2em]
-\tikzset{>=latex}
-
-% 一些全局工具的定义
-% \DeclareMathOperator*{\argmin}{arg\,min}
-% \DeclareMathOperator*{\argmax}{arg\,max}
-\usepackage{xspace}
-\providecommand{\eg}{\textit{e.g.}\@\xspace}
-\providecommand{\ie}{\textit{i.e.}\@\xspace}
-\providecommand{\st}{\textit{s.t.}\@\xspace}
-\providecommand{\wrt}{\textit{w.r.t.}\@\xspace}
-\providecommand{\etal}{\textit{et al}\@\xspace}
-
-\newcommand{\argmin}{\mathop{\mathrm{argmin}}}
-\newcommand{\argmax}{\mathop{\mathrm{argmax}}}
-\newcommand{\softmax}{\mathop{\mathrm{softmax}}}
-\newcommand{\id}{{\mathop{\mathrm{id}}}}
-\newcommand{\abs}[1]{\left| #1 \right| }
-\newcommand{\norm}[1]{\left\| {#1} \right\|}
-
+\usepackage{lipsum} 
+\usepackage{math}
 \graphicspath{{./data/}}
-%==============================================================
+
+\title{深度行人再识别学习}{浙江大学本科生毕业论文}
+\author{王兴路}{3140102282}
+\grade{2014 级}{信息工程}
+\mentor{李英明}
+\school{信息与电子工程学院}
+\date{2018年6月}
 
 \begin{document}
-
-%==============================================================
-% \zjutitle{深度行人再识别学习}{Deep Person ReIdentification Learning}
-% \zjuauthor{王兴路}{Xinglu Wang}{3140102282}
-% \zjumentor{李英明}{Yingming Li}
-% \zjuinfo{2014级}{信息工程}
-% \zjucollege{信息与电子工程学院}{College of Information Science and Electronic Engineering}
-% \zjudate{2018-02-25}{}
-
-\zjutitle{深度行人再识别学习}
-{Deep Person ReIdentification Learning}
-% 作者：{中文姓名}{英文}{学号}
-\zjuauthor{王兴路}{Xinglu Wang}{3140102282}
-% 指导教师：{导师中文名}{导师英文名}
-\zjumentor{李英明}{Yingming Li}
-% 个人信息：{年级}{专业名称}
-\zjuinfo{2014级}{信息工程}{Information Engineering}
-% 学院信息：{学院中文}{学院英文}
-\zjucollege{信息与电子工程学院}{College of Information Science \& Electronic Engineering}
-% % 日期：{提交日期}{Submitted Date}
-% \zjudate{2017 年 6 月 5 日}{June 5, 2017}
-%==============================================================
-
-{
-	\pagestyle{empty}
-
-	\include{data/cover-zh}
-	\cleardoublepage
-	% \include{data/cover-en}
-	% \cleardoublepage
-
-	% \include{data/agreement}
-	% \cleardoublepage
-}
-
-{
-	\frontmatter
-
-	\pagestyle{frontmatter}
-	\makeatletter
-	\let\ps@plain\ps@frontmatter
-	\makeatother
-
-	\include{data/abstract-zh}
-	% \include{data/abstract-en}
-
-	\tableofcontents
-	\newpage
-	\thispagestyle{empty}
-}
-
-{
-	\mainmatter
-
-	\pagestyle{mainmatter}
-	\makeatletter
-	\let\ps@plain\ps@mainmatter
-	\makeatother
-
-	\include{data/chapter-1}
-	\cleardoublepage
-	\include{data/chapter-2}
-	\cleardoublepage
-	\include{data/chapter-3}
-	\cleardoublepage
-	\include{data/chapter-4}
-	\cleardoublepage
-  \include{data/chapter-5}
-  \cleardoublepage
-  
-	\renewcommand{\thechapter}{}
-	\include{data/bibliography}
-	\cleardoublepage
-
-	% \include{data/acknowledgment}
-	% \cleardoublepage
-}
-
-{
-	\backmatter
-
-	\pagestyle{empty}
-
-	% \include{data/assignment}
-	% \cleardoublepage
-
-	% \include{data/assessment}
-	% \cleardoublepage
-}
-
+	\makecover
+    \tableofcontents
+	\begin{refsection}
+	\input{thesis.tex}
+	\input{chapter-2.tex}
+	\end{refsection}
+	\includepdf[fitpaper=true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
+		1, alonepage, 1, 《浙江大学本科生毕业论文（设计）任务书》, task
+	}]{assets/official-1-task.pdf}
+	\includepdf[fitpaper=true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
+		1, alonepage, 1, 《浙江大学本科生毕业论文（设计）考核表》,assess
+	}]{assets/official-11-assess.pdf}
+	\part{文献综述和开题报告}
+	\renewcommand\thechapter{\zhnum{chapter}、} 
+	\includepdf[fitpaper= true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
+		1, alonepage, 1, 文献综述和开题报告封面, cover,
+		1, alonepage, 1, 指导教师对文献综述和开题报告具体内容要求, cover,
+		1, contabpage, 1, 目录,con,
+		1, chapter, 1, 文献综述,s1,
+		5, chapter, 1, 开题报告,s2,
+		6, chapter, 1, 外文翻译,s3, 
+		7, chapter, 1, 外文原文,s4,
+		8, alonepage, 1, 《浙江大学本科生文献综述和开题报告考核表》,s5}]{../proposal/main.pdf}
 \end{document}
