@@ -4,8 +4,11 @@
 \documentclass[fangfont=FangSong,heifont=SimHei]{zju-thesis}
 \usepackage{url}
 \usepackage{lipsum} 
+\usepackage{multirow}
+\usepackage{booktabs}
+
 \usepackage{math}
-\graphicspath{{./data/}}
+\graphicspath{{./fig/}{./assets/}}
 
 \title{深度行人再识别学习}{浙江大学本科生毕业论文}
 \author{王兴路}{3140102282}
@@ -19,7 +22,6 @@
     \tableofcontents
 	\begin{refsection}
 	\input{thesis.tex}
-	\input{chapter-2.tex}
 	\end{refsection}
 	\includepdf[fitpaper=true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
 		1, alonepage, 1, 《浙江大学本科生毕业论文（设计）任务书》, task

@@ -5,6 +5,15 @@
     "pasteImage.prefix": "",
     "latex-workshop.latex.recipes": [
         {
+            "name": "xelatex -> biber -> xelatex*2",
+            "tools": [
+                "xelatex",
+                "biber",
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        {
             "name": "latexmk",
             "tools": [
                 "latexmk"
@@ -45,6 +54,20 @@
         {
             "name": "bibtex",
             "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "biber",
+            "command": "biber",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "xelatex",
+            "command": "xelatex",
             "args": [
                 "%DOCFILE%"
             ]

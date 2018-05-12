@@ -144,6 +144,7 @@
 \RequirePackage{csquotes}
 \RequirePackage{xcolor} % DO NOT forget
 \RequirePackage[backend=biber,citestyle=authoryear,sortcites=true,natbib]{biblatex}
+% \RequirePackage[backend=biber,style=numeric,sortcites=true]{biblatex}
 %% set citation color as blue
 \DeclareCiteCommand{\cite}
   {\color{blue}\usebibmacro{prenote}}%

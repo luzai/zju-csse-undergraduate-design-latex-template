@@ -4,11 +4,11 @@
 # needs inotifywait which is in
 # $ apt-get install inotify-tools
 while [ 1 ] ;  do
-  # inotifywait -e close_write,moved_to,create  ./data/ |
-  # while read -r directory events filename; do
-  #   echo ">> GUARD: running make"
+  # inotifywait -e close_write,moved_to,create,modify thesis.tex |
+  # while read -r filename events; do
+  #   echo ">> GUARD: running make " ${events} ${filename} 
   #   make
   # done
   make 
-  sleep 1
+  sleep 600
 done
