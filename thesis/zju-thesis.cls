@@ -143,8 +143,14 @@
 {\subsec}}% style
 \RequirePackage{csquotes}
 \RequirePackage{xcolor} % DO NOT forget
-\RequirePackage[backend=biber,citestyle=authoryear,sortcites=true,natbib]{biblatex}
-% \RequirePackage[backend=biber,style=numeric,sortcites=true]{biblatex}
+% \RequirePackage[backend=biber,citestyle=authoryear,sortcites=true,natbib]{biblatex}
+% \RequirePackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\RequirePackage[style=numeric,
+            backend=biber,
+            % sorting=none,
+            style=gb7714-2015,
+            bibstyle=gb7714-2015,
+            citestyle=gb7714-2015]{biblatex}
 %% set citation color as blue
 \DeclareCiteCommand{\cite}
   {\color{blue}\usebibmacro{prenote}}%
