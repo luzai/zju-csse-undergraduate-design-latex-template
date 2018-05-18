@@ -23,7 +23,6 @@
 \ProvidesClass{zju-thesis}
  [2018/04/10 v1.0 Thesis Template for Zhejiang University]
 
-
 \hyphenation{zju-thesis}
 \def\zjuthesis{\textsc{zju-thesis}}
 \def\version{1.0}
@@ -32,13 +31,19 @@
 \newif\ifzju@fang
 \newif\ifzju@hei
 \newif\ifzju@blind
+\newif\ifzju@numbib
+\newif\ifzju@nocolorbib
 \zju@fangfalse
 \zju@heifalse
 \zju@blindfalse
+\zju@numbibfalse
+\zju@nocolorbibtrue
 \RequirePackage{ifthen}
 \DeclareOptionX{fangfont}{\def\fangfont{#1}\zju@fangtrue}%
 \DeclareOptionX{heifont}{\def\heifont{#1}\zju@heitrue}%
 \DeclareOptionX{blind}{\zju@blindtrue}
+\DeclareOptionX{numbib}{\zju@numbibtrue}
+\DeclareOptionX{nocolorbib}{\zju@nocolorbibfalse}
 \ProcessOptionsX%
 \ifzju@fang\relax\else
     \ClassError{zju-thesis}{%
@@ -52,15 +57,21 @@
 \fi
 \RequirePackage{xeCJK}
 \RequirePackage{fontspec}
-\xeCJKsetup{AutoFakeBold=1}
-
+% \xeCJKsetup{AutoFakeBold=1}
+\xeCJKsetup{AutoFakeBold=0}
+% \RequirePackage[resetfonts]{cmap} 
 \setCJKfamilyfont{fang}{\fangfont}
 \setCJKfamilyfont{hei}{\heifont}
+% \setCJKfamilyfont{song}{Adobe Song Std}
+% \setCJKfamilyfont{hei}{Adobe Heiti Std}
+% \setCJKfamilyfont{kai}{Adobe Kaiti Std}
+% \setCJKfamilyfont{fang}{Adobe Fangsong Std}
 
 \newcommand*{\fang}{\CJKfamily{fang}}
 \newcommand*{\hei}{\CJKfamily{hei}}
 
-\setCJKmainfont{\fangfont}
+\setCJKmainfont[BoldFont={\heifont}]{\fangfont}
+% \setCJKmainfont{\fangfont}
 \newcommand{\partheifont}{\fontsize{48pt}{\baselineskip}
         \CJKfontspec[AutoFakeBold=false]{\heifont}\bfseries}
 \newcommand{\partfangfont}{\fontsize{36pt}{\baselineskip}
@@ -76,6 +87,7 @@
     {\fontsize{14pt}{\baselineskip}\CJKfontspec[AutoFakeBold=false]{\fangfont}\bfseries}
     {\fontsize{14pt}{\baselineskip}\CJKfontspec[AutoFakeBold=4]{\fangfont}\bfseries}}
 \newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\CJKfontspec[AutoFakeBold=false]{\fangfont}}
+\newcommand{\bfxs}{\fontsize{12pt}{\baselineskip}\CJKfontspec[AutoFakeBold=4]{\fangfont}\bfseries}
 \newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\CJKfontspec[AutoFakeBold=false]{\fangfont}}
 \RequirePackage[left=2.5cm,right=2.0cm,top=2.5cm,bottom=2.0cm]{geometry}
 
@@ -105,6 +117,16 @@
 \renewcommand{\footrulewidth}{0pt} % no line
 \fancyhead[R]{\titleown}
 }
+\fancypagestyle{promise}{%
+\fancyhf{} % clear fields
+\fancyhead[RO]{\titleown}
+\fancyhead[LE]{\titlezju}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.7pt}
+\renewcommand{\footrulewidth}{0pt}
+  \pagenumbering{Roman}
+}
+
 \fancypagestyle{followingpage}{%
 \fancyhf{} % clear fields
 \fancyhead[RO]{\titleown}
@@ -117,11 +139,7 @@
 \AtBeginDocument{\thispagestyle{firstpage}}
 \AtBeginDocument{\assignpagestyle{\chapter}{followingpage}}
 \pagestyle{followingpage}
-\renewcommand{\figurename}{图}
-\renewcommand{\tablename}{表}
-\RequirePackage[labelfont=bf,tableposition=top]{caption}
-\RequirePackage{float}
-\RequirePackage{titlesec}
+\RequirePackage[explicit]{titlesec}
 \newcommand{\chapterbreak}{\clearpage}
 
 \renewcommand\section{\@startsection
@@ -136,15 +154,22 @@
 {1.5ex \@plus .2ex}%            afterskip
 {\subsec}}% style
 
+\RequirePackage[colorlinks=true,pdfstartview=FitH,%
+linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
+
 \renewcommand\subsubsection{\@startsection
 {subsubsection}{3}{\z@}%name, level, indent
 {-3.25ex\@plus -1ex \@minus -.2ex}%             beforeskip
 {1.5ex \@plus .2ex}%            afterskip
 {\subsec}}% style
+\RequirePackage[american]{babel}
 \RequirePackage{csquotes}
 \RequirePackage{xcolor} % DO NOT forget
-% \RequirePackage[backend=biber,citestyle=authoryear,sortcites=true,natbib]{biblatex}
-% \RequirePackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\ifzju@numbib%
+\RequirePackage[backend=biber,sorting=nyt,style=apa]{biblatex}
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+\else
+% \RequirePackage[backend=biber,citestyle=authoryear,sortcites=true,natbib,sorting=nyt,style=apa]{biblatex}
 \RequirePackage[style=numeric,
             backend=biber,
             % sorting=none,
@@ -152,48 +177,41 @@
             bibstyle=gb7714-2015,
             citestyle=gb7714-2015]{biblatex}
 %% set citation color as blue
-\DeclareCiteCommand{\cite}
-  {\color{blue}\usebibmacro{prenote}}%
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-\DeclareCiteCommand{\parencite}[\mkcolorbibparens]
-  {\usebibmacro{prenote}}%
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-\DeclareCiteCommand{\textcite}
-  {\color{blue}
-  \renewcommand*\nameyeardelim{\addspace}%
-  \boolfalse{cbx:parens}%
-   \renewcommand*{\finalnamedelim}{% <---- this is new
-     \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
-     \addspace\bibstring{and}\space}}
-  {\usebibmacro{citeindex}%
-   \iffirstcitekey
-     {\setcounter{textcitetotal}{1}}
-     {\stepcounter{textcitetotal}%
-      \textcitedelim}%
-   \usebibmacro{textcite}}
-  {\ifbool{cbx:parens}
-     {\bibcloseparen\global\boolfalse{cbx:parens}}
-     {}}
-  {\usebibmacro{textcite:postnote}}
-\makeatletter
-\newrobustcmd{\mkcolorbibparens}[1]{%
-\begingroup
-\color{blue}%
-\blx@blxinit
-\blx@setsfcodes
-\bibopenparen#1\bibcloseparen
-\endgroup}
-\makeatother
+% \DeclareCiteCommand{\textcite}
+%   {\ifzju@nocolorbib\color{blue}\fi
+%     \usebibmacro{cite:init}%
+%    \usebibmacro{prenote}}
+%   {\usebibmacro{citeindex}%
+%    \usebibmacro{textcite}}
+%   {}
+%   {\usebibmacro{textcite:postnote}%
+%    \usebibmacro{cite:post}}
+%   \DeclareCiteCommand{\cite}
+%   {\ifzju@nocolorbib\color{blue}\fi
+%     \usebibmacro{cite:init}%
+%    \usebibmacro{prenote}}
+%   {\usebibmacro{citeindex}%
+%    \usebibmacro{cite}}
+%   {}
+%   {\usebibmacro{postnote}%
+%    \usebibmacro{cite:post}}
+% \DeclareCiteCommand{\parencite}[\mkbibparens]
+%   {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+%   \ifzju@nocolorbib\color{blue}\fi
+%    \usebibmacro{cite:init}%
+%    \usebibmacro{prenote}}
+%   {\usebibmacro{citeindex}%
+%    \usebibmacro{cite}}
+%   {}
+%   {\usebibmacro{postnote}%
+%    \usebibmacro{cite:post}}
+% \DeclareLanguageMapping{american}{american-apa}
 \bibliography{ref.bib}
 \addbibresource{ref.bib}
 \defbibheading{chapbib}[参考文献]{%
-  \chapter{#1}%
+  \chapter*{#1}%
+  %\addtocontents{toc}{\protect\contentsline{chapter}{\protect\numberline{}参考文献}{}}
+  \addcontentsline{toc}{chapter}{参考文献}
   \markboth{#1}{#1}}
 \defbibheading{secbib}[参考文献]{%
   \section{#1}%
@@ -203,15 +221,34 @@
 \counterwithin{chapter}{part}
 \counterwithin*{page}{part}
 
-\AtBeginDocument{\assignpagestyle{\part}{firstpage}}
 \renewcommand\thepart{第\zhnum{part}部分}
-\renewcommand{\partname}{}
+\addto\captionsamerican{\renewcommand{\partname}{}}
+\addto\captionsamerican{\renewcommand{\figurename}{图}}
+\addto\captionsamerican{\renewcommand{\tablename}{表}}
+\RequirePackage[labelfont=bf,tableposition=top]{caption}
+\RequirePackage{float}
 \renewcommand{\thechapter}{\arabic{chapter}}
 \renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
-\titleformat{\chapter}{\chap}{\thechapter}{1em}{}
+\titleformat{\chapter}{\chap}{\thechapter}{1em}{#1}
 \titlespacing*{\chapter}{0pt}{0pt}{2.3ex plus .2ex}
 
 \makeatletter
+\renewcommand{\part}{%
+  \if@openright
+    \cleardoublepage
+  \else
+    \clearpage
+  \fi%
+  \thispagestyle{empty}%
+  \if@twocolumn
+    \onecolumn
+    \@tempswatrue
+  \else
+    \@tempswafalse
+  \fi%
+  \null\vfil%
+  \secdef\@part\@spart%
+}
 \def\@part[#1]#2{%
     \ifnum \c@secnumdepth >-2\relax
         \refstepcounter{part}%
@@ -229,7 +266,7 @@
     \vskip 72\p@
     \fi
     {\partfangfont #2}\par}%
-    \@endpart}
+    \@endpart\pagenumbering{arabic}} % add 20180513 20:58
 \makeatother
 
 
@@ -244,7 +281,6 @@
 \setcounter{tocdepth}{6}
 \setcounter{secnumdepth}{6}
 \RequirePackage{titletoc}
-
 \titleclass{\alonepage}{straight}[\part]
 \newcounter{alonepage}
 \titleclass{\contabpage}{straight}[\part]
@@ -253,7 +289,7 @@
 \titlecontents{alonepage}[0pc]{}{}{}{}
 \titlecontents{contabpage}[0pc]{}{}{}{\titlerule*[1pc]{.}\thecontentspage}
 \titlecontents{part}[0pc]{\chap\bfseries}{}{}{}
-\titlecontents{chapter}[0pc]{\addvspace{0pt}\hspace*{0pc}}{\thecontentslabel}{}{
+\titlecontents{chapter}[0pc]{\addvspace{0pt}\hspace*{0pc}}{\thecontentslabel\enspace}{}{
 \titlerule*[1pc]{.}\thecontentspage}%[\addvspace{3pt}]
 \titlecontents{section}[2pc]{}{\makebox[0pt][l]{\hspace*{-2pc}\thecontentslabel}}{}{\titlerule*[1pc]{.}\thecontentspage}
 \titlecontents{subsection}[3pc]{}{\makebox[0pt][l]{\hspace*{-3pc}\thecontentslabel}}{
@@ -261,6 +297,38 @@
 \titlecontents{subsubsection}[4pc]{\small}{\makebox[0pt][l]{\hspace{-4pc}\thecontentslabel}}{
 }{\titlerule*[1pc]{.} \thecontentspage}
 
+\usepackage{tocloft}
+% \defbibheading{bibliography}[\bibname]{
+%   \section{#1}
+%   \markboth{#1}{#1}
+% }
+
+\titleformat{name=\chapter,numberless}{\chap\centering}{}{1em}{#1}
+\preto{\chapter}{\def\leveltitle{\chaptertitle}}
+\pretocmd{\@schapter}
+  {\expandafter\gdef\leveltitle{#1}}
+  {}{}
+\newcommand{\keywords}[1]{%
+  \ifthenelse{\equal{\chaptertitle}{Abstract}}{%
+    \textbf{Key Words：}#1
+  }{%
+    \textbf{关键字：}#1
+  }
+}
+\newenvironment{abstract}[1][zh]{%
+  \ifthenelse{\equal{#1}{en}}{%
+     \chapter*{Abstract}
+  }{%
+      \chapter*{摘\hspace*{1em}要}
+      %\addcontentsline{toc}{chapter}{摘要}
+  }
+}{%
+}
+\newenvironment{acknowledgement}{%
+  \chapter*{致\hspace*{1em}谢}
+  %\addcontentsline{toc}{chapter}{致谢}
+}{%
+}
 
 \makeatletter
 \let\oldtableofcontents\tableofcontents
@@ -273,11 +341,21 @@
   \endgroup%
 }
 \makeatother
-\renewcommand{\contentsname}{{\centerline{目\hspace*{1em}录}}}
+\addto\captionsamerican{\renewcommand{\contentsname}{\centerline{目\hspace*{1em}录}}}
 \RequirePackage{setspace}
 \spacing{1.5}
 \RequirePackage{indentfirst}
-
+\RequirePackage[title]{appendix}
+\renewcommand\appendixname{附录}
+\renewcommand\appendixtocname{附录}
+\AtBeginEnvironment{appendices}{\let\clearpage\relax}
+\BeforeBeginEnvironment{appendices}{\addcontentsline{toc}{chapter}{附录}\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}\renewcommand\thesection{\thechapter.\arabic{section}}}
+\AfterEndEnvironment{appendices}{\addtocontents{toc}{\protect\setcounter{tocdepth}{6}}}
+\newenvironment{resume}
+{
+  \chapter*{作者简历}
+  \addcontentsline{toc}{chapter}{作者简历}
+}{}
 \RequirePackage{graphicx}
 \newcommand\hp{\hspace{0.35em}}
 \newcommand*{\makecoverprop}
@@ -285,10 +363,10 @@
 \begingroup
 \begin{center}
 
-\includegraphics[width=0.8\textwidth]{assets/zju-text.png}
+\includegraphics[width=0.8\textwidth]{../assets/zju-text.png}
 \\[1.2\baselineskip]
 {\Huge{\hei\bfseries {本\hp 科\hp 生\hp 毕\hp 业\hp 论\hp 文（设\hp 计） \\[0.8\baselineskip]文献综述和开题报告}}}\\[1.2\baselineskip] % Title
-\includegraphics[width=0.35\textwidth]{assets/zju-xiaohui.jpg}
+\includegraphics[width=0.35\textwidth]{../assets/zju-xiaohui.jpg}
 \vspace*{3\baselineskip} % Whitespace between
 \begin{table}[h!]
   \begin{center}
@@ -311,12 +389,12 @@
 {
 \begingroup
 \begin{center}
-
-\includegraphics[width=0.8\textwidth]{assets/zju-text.png}
+    {\small{\bfseries 涉密论文$\Box$公开论文$\Box$}}\\
+\includegraphics[width=0.8\textwidth]{../assets/zju-text.png}
 \\[1.2\baselineskip]
 {\Huge{\hei\bfseries {本\hp 科\hp 生\hp 毕\hp 业\hp 论\hp 文（设\hp 计）}}}\\[1.2\baselineskip] % Title
-\includegraphics[width=0.32\textwidth]{assets/zju-xiaohui.jpg}\\[1\baselineskip]
-        \chap{题目}\ \underline{\makebox[11cm][c]{\chap\titleown}} \\[1.8\baselineskip]
+\includegraphics[width=0.32\textwidth]{../assets/zju-xiaohui.jpg}\\[1\baselineskip]
+        \chap{题目}\ \underline{\makebox[11cm][c]{\chap\titleown}} \\[1.3\baselineskip]
 \begin{table}[h!]
   \begin{center}
 \begin{tabular}{ll}
@@ -334,11 +412,22 @@
 \endgroup
 \clearpage
 }
-\setcounter{page}{-1}
 \RequirePackage{longtable}
 \newcommand\file[1]{\textsf{#1}}
 \RequirePackage{pdfpages}
-
+\RequirePackage[ruled,linesnumbered]{algorithm2e}
+\SetAlgoCaptionSeparator{\quad}
+\SetAlgorithmName{算法}{算法}{算法}
+\RequirePackage{enumitem}
+\RequirePackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{引理}
+\newtheorem{prop}{命题}
+\theoremstyle{definition}
+\newtheorem{assump}{假设}
+\newtheorem{definition}{定义}
+\newtheorem{corollary}{推论}
 
 \endinput
 %%

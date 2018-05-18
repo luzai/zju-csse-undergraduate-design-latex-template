@@ -1,12 +1,6 @@
 ﻿% !TeX encoding = utf8
 % !TeX root = ./main.tex
 
-% part I
-% \titleformat{\chapter}
-%   {\chap}{\thechapter}{1em}{}
-% \titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
-%
-\part{毕业论文}
 
 % -------------------------------------------------------------------------
 \chapter{引言}
@@ -28,12 +22,12 @@
 其中行人检测是从视频监控视频每一帧中检测出行人的技术；
 行人跟踪是在时序上将行人串联起来形成视频片段的技术；
 而行人检索是利用得到的行人图像完成跨摄像头行人检索的技术。
-根据Zheng \etal \cite{zheng2017person}的定义，行人检测和行人跟踪是计算机视觉中已经存在的任务，因此大多研究者所指的狭义的行人再识别问题(Person Re-identification，Person Re-ID)着力解决第三个模块，也即
+根据Zheng \etal \parencite{zheng2017person} 的定义，行人检测和行人跟踪是计算机视觉中已经存在的任务，因此大多研究者所指的狭义的行人再识别问题(Person Re-identification，Person Re-ID)着力解决第三个模块，也即
 行人检索问题。
 本文也不例外，着力解决狭义的行人再识别问题，也即行人检索问题。
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{background.png}
+	\includegraphics[width=\textwidth]{fig/background.png}
 	\caption{广义的行人再识别任务的总体框架，图片修改自~\cite{zheng2017person}}
 	\label{fig:overall}
 \end{figure}
@@ -47,7 +41,8 @@
 同时需要对
 环境的变化和行人本身的变化具有一定的鲁棒性,
 包括明暗变化、环境噪声和行人姿态变化等；
-现有的工作通常融合全局特征和局部特征\cite{reciprocal}，\cite{liu2017hydraplus}，\cite{zhao2017spindle},\cite{glad}，或引入注意力机制。
+现有的工作通常融合全局特征和局部特征\cite{reciprocal}，\cite{liu2017hydraplus}，\cite{zhao2017spindle}，
+\cite{glad}，或引入注意力机制。
 比如，Li \etal \cite{latent}使用STN结合先验定位可变性的行人部分，
 从原始图片中预测定位参数，便于后续的网络将注意力集中于具有潜在语义的身体部分。
 考虑到视频监控环境下行人的姿态先验——行人通常直立于地面，作者使用了4个自由度的仿射变换矩阵，建模了尺度、平移方面的可变性变换。
@@ -94,7 +89,7 @@
 \textbf{（3）、}
 基于实例的度量损失，如二元组或三元组损失，如果没有在线难样本挖掘的帮助\cite{yaqing2016semantics}，仅仅依靠随机选择样本对和更长的训练时间，会导致模型过度强掉简单样本，进而导致性能下降。
 \textbf{（4）、}
-基于实例的度量损失，如三元组损失，在难样本挖掘的帮助下，能找到最富有信息的样本，并利用这些代表性的样本实现类间间距最大化。
+基于实例的度量损失，如三元组损失，如果有难样本挖掘的帮助，就能找到最富有信息的样本，并利用这些代表性的样本实现类间间距最大化，最终获得很好的性能。
 但是即使考虑了不同类别之间最大化边界，
 在实验中我们观察到，这种损失泛化到测试集时仍然可能因为某些类别的散度较大，
 存在一些样本偏离到边界，容易和开放环境下的其他样本或潜在的类中心混淆。
@@ -118,7 +113,7 @@
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.95\textwidth]{2018-04-18-21-53-15.png}
+	\includegraphics[width=.95\textwidth]{fig/2018-04-18-21-53-15.png}
 	\caption{我们的基准模型在手工标注的数据集和行人检测器自动检测的数据集上的典型样例} \label{fig:label2det}
 \end{figure}
 
@@ -167,7 +162,7 @@
 但是高层语义特征的通道维度通常较高，会增加计算量和参数，增加过拟合的风险。
 但是幸运的是，通过实验，Hu \etal 发现最终的全局特征
 不需要进一步使用通道层面的注意力机制。
-因为即使使用了注意力机制，
+因为即使使用了注意力机制
 ，学习到的注意力权重也接近于均匀分布。
 这说明，最终的全局表示在每一个通道上都有特定的语义信息，冗余程度较小，重要程度相同。
 遵循这一观察，我们进一步提出在特征融合阶段自适应地重用每个阶段抽取的属性特征$h_{l+1}$。
@@ -558,7 +553,7 @@ $\norm{\vx_1 - \vx_2}_\mM=
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.95\textwidth]{tsne.png}
+	\includegraphics[width=.95\textwidth]{fig/tsne.png}
 	\caption{三元组损失在3维空间降维可视化，使用CUHK03数据集和我们的基准模型得到}
 	\label{fig:tsne}
 \end{figure}
@@ -635,12 +630,12 @@ $D(\vx_i,\vc_j)$表示样本和中心在特征空间的距离
 \label{eq:ccent}
 \end{equation}
 
-式子~\ref{eq:ccent}中涉及到两个超参数$\lambda_s$和$\lambda$；两种类型的推力和一种类型的拉力。
+式子~\ref{eq:ccent}中涉及到两个超参数$\lambda_s$和$\lambda_d$；两种类型的推力和一种类型的拉力。
 
-$\lambda_s$用于对样本和正类中心之间的距离进行缩放，权衡样本和负类心之间推力的重要性。
+$\lambda_s$用于对样本和正类中心之间的距离进行缩放。
 当$\lambda_s$趋近于0时候，中心对比损失退化为中心损失；
 当$w_s$趋近于1时，中心对比损失表现地和交叉熵损失较为类似。
-$\lambda_d$用于权衡类心之间推力的重要性。
+$\lambda_d$用于对类心间推力的进行缩放。
 
 $\min_{\substack{
 			j=1...M \\
@@ -792,7 +787,4 @@ $L_2$-Softmax提出使用$L_2$归一化的特征向量有助于稳定深度网�
 
 % 在实验中，我们尝试了对卷积模块进行设计，包括Doubly Conv，Group Equivalent Conv。后续尝试学习群论的知识，
 
-% \bibliographystyle{assets/gbt7714-2005}
-% {
 \printbibliography[heading=chapbib]
-% }
