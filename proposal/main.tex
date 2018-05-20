@@ -46,22 +46,22 @@
 
 %==============================================================
 
-% {  \include{data/cover} }
+{  \include{data/cover} }
 
-% {  \include{data/yaoqiu} }
+{  \include{data/yaoqiu} }
 
-% {
-% \pagestyle{empty}
-% {
-% 	\renewcommand{\thispagestyle}[1]{}
-% 	\tableofcontents
-% }
-% \clearpage
-% \pagestyle{plain}
-% % \tableofcontents
-% % \thispagestyle{toc}
-% % \chaptermark{目录}
-% }
+{
+\pagestyle{empty}
+{
+	\renewcommand{\thispagestyle}[1]{}
+	\tableofcontents
+}
+\clearpage
+\pagestyle{plain}
+% \tableofcontents
+% \thispagestyle{toc}
+% \chaptermark{目录}
+}
 
 \mainmatter
 
@@ -85,30 +85,30 @@
 	\include{data/waiwenfanyi}
 }
 
-% {
-% \newpage
-% \pagestyle{empty} %\renewcommand\thepage{}
-% \chapter[外文原文]{}
-% \vspace{-9em}
-% \begin{flushleft}
-% 	\xiaoer\bfseries
-% 	附：原稿
-% \end{flushleft}
-% % \begin{center}
-% % \includegraphics[width=\textwidth]{data/waiwenyuanwen-page-001.jpg}	
-% % \end{center}
-% \begin{minipage}[b]{\linewidth}
-% 	\includepdf[scale=.95,pages=1,pagecommand={}]{data/waiwenyuanwen.pdf}
-% \end{minipage}
+{
+\newpage
+\pagestyle{empty} %\renewcommand\thepage{}
+\chapter[外文原文]{}
+\vspace{-9em}
+\begin{flushleft}
+	\xiaoer\bfseries
+	附：原稿
+\end{flushleft}
+% \begin{center}
+% \includegraphics[width=\textwidth]{data/waiwenyuanwen-page-001.jpg}	
+% \end{center}
+\begin{minipage}[b]{\linewidth}
+	\includepdf[scale=.95,pages=1,pagecommand={}]{data/waiwenyuanwen.pdf}
+\end{minipage}
 
-% \includepdf[scale=.95,pages=2-, pagecommand={}]{data/waiwenyuanwen.pdf}
-% % \begin{center}
-% % \includegraphics[page=2-,scale=0.9]{data/waiwenyuanwen.pdf}
-% % \end{center}
+\includepdf[scale=.95,pages=2-, pagecommand={}]{data/waiwenyuanwen.pdf}
+% \begin{center}
+% \includegraphics[page=2-,scale=0.9]{data/waiwenyuanwen.pdf}
+% \end{center}
 
-% }
+}
 \backmatter
 
-% {  \include{data/kaohe} }
+{  \include{data/kaohe} }
 
 \end{document}

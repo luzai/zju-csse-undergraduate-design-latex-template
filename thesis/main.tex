@@ -2,8 +2,7 @@
 %!TEX encoding = UTF-8
 
 % \documentclass[fangfont=FangSong,heifont=SimHei]{zju-thesis}
-\documentclass[fangfont=AdobeFangsongStd-Regular,heifont=AdobeHeitiStd-Regular,blind]{zju-thesis}
-% \documentclass[fangfont=AGaramondPro-Regular,heifont=AdobeHeitiStd-Regular,blind]{zju-thesis}
+\documentclass[fangfont=AdobeFangsongStd-Regular,heifont=AdobeHeitiStd-Regular]{zju-thesis}
 
 \usepackage{url}
 \usepackage{lipsum} 
@@ -24,22 +23,28 @@
 \begin{document}
 % \makecover
 
-\begin{abstract}
-	在本次毕设中，我们提出了基于注意力机制的多尺度特征融合和基于对比中心损失的度量学习方法。
-前者的动机为：通过可视化失败案例，我们发现在失配严重的数据集上，简单地使用全局特征和局部属性特征拼接，有时候反而会造成性能下降。
-于是我们提出了对局部特征进行属性提取来应对失配问题的方法，通过合理地使用注意力机制，我们在计算量没有大幅增加的情况下，获得了性能的提升。
-后者的动机为：基于难样本挖掘的三元损失虽然取得了较好的效果，但是可视化发现，该损失只关注局部特性，导致同一行人的两个摄像机视角常常聚成两个类别。
-于是我们提出了对比中心损失，灵活地进一步缩小类内间距。
-我们在不同大小、难度和类型的数据集上对提出的两种方法进行了实验，性能普遍获得了提升。
+% \begin{abstract}
+% 	行人再识别旨在跨摄像头检索行人图片，在本次毕设中，我们提出了基于注意力机制的多尺度特征融合和基于对比中心损失的度量学习方法。
 
+% 	通过可视化失败案例，我们发现在失配严重的数据集上简单地使用全局特征和局部属性特征拼接反而会造成性能下降。
+% 	于是我们提出了对局部特征进行属性提取来应对失配问题的方法，
+% 	通过合理地使用注意力机制，我们在计算量没有大幅增加的情况下，获得了性能的提升。
+
+% 	基于难样本挖掘的三元损失虽然取得了较好的效果，但是通过降维可视化发现该损失只关注局部特性，导致同一行人的两个摄像机视角常常聚成两个类别。
+% 	于是我们提出了对比中心损失，灵活地进一步缩小类内间距。
+% 	我们在不同大小、难度和类型的数据集上对提出的两种方法进行了实验，性能普遍获得了提升。
+
+% 	\keywords{行人再识别，注意力机制，度量学习}
+% 	\end{abstract}
+% \begin{abstract}[en]
+% 	Person re-identification (Person-ReID) aims to search people across non-overlapping surveillance camera views. In this thesis, we propose Multi-scale Feature Fusion based on Attention Mechanism and Contrastive Center Loss for Person-ReID. 
+
+% 	Via observing visual failure case, we notice that simply concatenating local and global features sometimes causes performance degradation. To cope with this problem, we propose to extract attributes features of interest by channel level attention. 
 	
-	\keywords{}
-	\end{abstract}
-\begin{abstract}[en]
-	Hello world!
+% 	Triplet Loss based on hard example mining with mini-batch boost the performance, however, it fails to further decrease variance across camera view for Person-ReID task. We propose an auxiliary supervision signal, \ie, Contrastive Center Loss to help learn a better feature representation.
 	
-	\keywords{thesis, math}
-\end{abstract}
+% 	\keywords{Person-ReID, Attention Mechanism, Metric Learning}
+% \end{abstract}
 	
 
 \tableofcontents

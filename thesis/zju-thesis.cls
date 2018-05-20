@@ -165,10 +165,10 @@ linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
 \RequirePackage[american]{babel}
 \RequirePackage{csquotes}
 \RequirePackage{xcolor} % DO NOT forget
-\ifzju@numbib%
-\RequirePackage[backend=biber,sorting=nyt,style=apa]{biblatex}
-\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
-\else
+% \ifzju@numbib%
+% \RequirePackage[backend=biber,sorting=nyt,style=apa]{biblatex}
+% \newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+% \else
 % \RequirePackage[backend=biber,citestyle=authoryear,sortcites=true,natbib,sorting=nyt,style=apa]{biblatex}
 \RequirePackage[style=numeric,
             backend=biber,
@@ -176,6 +176,7 @@ linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
             style=gb7714-2015,
             bibstyle=gb7714-2015,
             citestyle=gb7714-2015]{biblatex}
+% \fi
 %% set citation color as blue
 % \DeclareCiteCommand{\textcite}
 %   {\ifzju@nocolorbib\color{blue}\fi
