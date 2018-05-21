@@ -8,13 +8,8 @@
 }
 
 @article{zheng2017person,
-	abstract = {We present a novel large-scale dataset and comprehensive baselines for end-to-end pedestrian detection and person recognition in raw video frames. Our baselines address three issues: the performance of various combinations of detectors and recognizers, mechanisms for pedestrian detection to help improve overall re-identification accuracy and assessing the effectiveness of different detectors for re-identification. We make three distinct contributions. First, a new dataset, PRW, is introduced to evaluate Person Re-identification in the Wild, using videos acquired through six synchronized cameras. It contains 932 identities and 11,816 frames in which pedestrians are annotated with their bounding box positions and identities. Extensive benchmarking results are presented on this dataset. Second, we show that pedestrian detection aids re-identification through two simple yet effective improvements: a discriminatively trained ID-discriminative Embedding (IDE) in the person subspace using convolutional neural network (CNN) features and a Confidence Weighted Similarity (CWS) metric that incorporates detection scores into similarity measurement. Third, we derive insights in evaluating detector performance for the particular scenario of accurate person re-identification.},
 	archivePrefix = {arXiv},
-	arxivId = {1604.02531},
 	author = {Zheng, Liang and Zhang, Hengheng and Sun, Shaoyan and Chandraker, Manmohan and Tian, Qi},
-
-	eprint = {1604.02531},
-	file = {:home/luzai/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Zheng et al. - Unknown - Person Re-identification in the Wild.pdf:pdf},
 	journal = {arXiv preprint arXiv:1604.02531},
 	title = {{Person Re-identification in the Wild}},
 	year = {2017}
@@ -42,7 +37,7 @@
 	volume    = {abs/1711.08184},
 	year      = {2017},
 	archivePrefix = {arXiv},
-	eprint    = {1711.08184},
+	
 	timestamp = {Sun, 03 Dec 2017 12:38:15 +0100},
 	bibsource = {dblp computer science bibliography, http://dblp.org}
 }
@@ -57,9 +52,8 @@
 	journal   = {CoRR},
 	volume    = {abs/1710.06555},
 	year      = {2017},
-
 	archivePrefix = {arXiv},
-	eprint    = {1710.06555},
+	
 	timestamp = {Wed, 01 Nov 2017 19:05:42 +0100},
 
 	bibsource = {dblp computer science bibliography, http://dblp.org}
@@ -117,7 +111,7 @@
 	year      = {2017},
 
 	archivePrefix = {arXiv},
-	eprint    = {1701.08398},
+	
 	timestamp = {Wed, 07 Jun 2017 14:40:10 +0200},
 
 	bibsource = {dblp computer science bibliography, http://dblp.org}
@@ -133,9 +127,7 @@
 @article{guo2018multilevel,
 abstract = {Person Re-Identification (ReID) requires comparing two images of person captured under different conditions. Existing work based on neural networks often computes the similarity of feature maps from one single convolutional layer. In this work, we propose an efficient, end-to-end fully convolutional Siamese network that computes the similarities at multiple levels. We demonstrate that multi-level similarity can improve the accuracy considerably using low-complexity network structures in ReID problem. Specifically, first, we use several convolutional layers to extract the features of two input images. Then, we propose Convolution Similarity Network to compute the similarity score maps for the inputs. We use spatial transformer networks (STNs) to determine spatial attention. We propose to apply efficient depth-wise convolution to compute the similarity. The proposed Convolution Similarity Networks can be inserted into different convolutional layers to extract visual similarities at different levels. Furthermore, we use an improved ranking loss to further improve the performance. Our work is the first to propose to compute visual similarities at low, middle and high levels for ReID. With extensive experiments and analysis, we demonstrate that our system, compact yet effective, can achieve competitive results with much smaller model size and computational complexity.},
 archivePrefix = {arXiv},
-arxivId = {1803.11353},
 author = {Guo, Yiluan and Cheung, Ngai-Man},
-eprint = {1803.11353},
 file = {:home/xinglu/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/CVPR18{\_}re-id/CVPR2018{\_}Efficient and Deep Person Re-Identification using Multi-Level Similarity.pdf:pdf},
 title = {{Efficient and Deep Person Re-Identification using Multi-Level Similarity}},
 volume = {1},
@@ -146,9 +138,8 @@ journal={arXiv preprint arXiv:1803.11353},
 @article{chang2018factor,
 abstract = {Key to effective person re-identification (Re-ID) is modelling discriminative and view-invariant factors of person appearance at both high and low semantic levels. Recently developed deep Re-ID models either learn a holistic single semantic level feature representation and/or require laborious human annotation of these factors as attributes. We propose Multi-Level Factorisation Net (MLFN), a novel network architecture that factorises the visual appearance of a person into latent discriminative factors at multiple semantic levels without manual annotation. MLFN is composed of multiple stacked blocks. Each block contains multiple factor modules to model latent factors at a specific level, and factor selection modules that dynamically select the factor modules to interpret the content of each input image. The outputs of the factor selection modules also provide a compact latent factor descriptor that is complementary to the conventional deeply learned features. MLFN achieves state-of-the-art results on three Re-ID datasets, as well as compelling results on the general object categorisation CIFAR-100 dataset.},
 archivePrefix = {arXiv},
-arxivId = {1803.09132},
 author = {Chang, Xiaobin and Hospedales, Timothy M. and Xiang, Tao},
-eprint = {1803.09132},
+
 file = {:home/xinglu/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/CVPR18{\_}re-id/CVPR2018{\_}Multi-Level Factorisation Net for Person Re-Identification.pdf:pdf},
 month = {mar},
 number = {I},
@@ -178,7 +169,7 @@ journal={arXiv preprint arXiv:1803.09132},
 	year      = {2017},
 
 	archivePrefix = {arXiv},
-	eprint    = {1709.04329},
+	
 	timestamp = {Thu, 05 Oct 2017 09:43:05 +0200},
 
 	bibsource = {dblp computer science bibliography, http://dblp.org}
@@ -223,9 +214,8 @@ year = {2016}
 @article{zhao2017part,
 abstract = {In this paper, we address the problem of person re-identification, which refers to associating the persons captured from different cameras. We propose a simple yet effective human part-aligned representation for handling the body part misalignment problem. Our approach decomposes the human body into regions (parts) which are discriminative for person matching, accordingly computes the representations over the regions, and aggregates the similarities computed between the corresponding regions of a pair of probe and gallery images as the overall matching score. Our formulation, inspired by attention models, is a deep neural network modeling the three steps together, which is learnt through minimizing the triplet loss function without requiring body part labeling information. Unlike most existing deep learning algorithms that learn a global or spatial partition-based local representation, our approach performs human body partition, and thus is more robust to pose changes and various human spatial distributions in the person bounding box. Our approach shows state-of-the-art results over standard datasets, Market-{\$}1501{\$}, CUHK{\$}03{\$}, CUHK{\$}01{\$} and VIPeR.},
 archivePrefix = {arXiv},
-arxivId = {1707.07256},
 author = {Zhao, Liming and Li, Xi and Wang, Jingdong and Zhuang, Yueting},
-eprint = {1707.07256},
+
 file = {:home/xinglu/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Zhao et al. - 2017 - Deeply-Learned Part-Aligned Representations for Person Re-Identification.pdf:pdf},
 month = {jul},
 pages = {3219--3228},
@@ -264,13 +254,10 @@ year = {2015}
 @article{hu2017senet,
 abstract = {Convolutional neural networks are built upon the convolution operation, which extracts informative features by fusing spatial and channel-wise information together within local receptive fields. In order to boost the representational power of a network, much existing work has shown the benefits of enhancing spatial encoding. In this work, we focus on channels and propose a novel architectural unit, which we term the "Squeeze-and-Excitation" (SE) block, that adaptively recalibrates channel-wise feature responses by explicitly modelling interdependencies between channels. We demonstrate that by stacking these blocks together, we can construct SENet architectures that generalise extremely well across challenging datasets. Crucially, we find that SE blocks produce significant performance improvements for existing state-of-the-art deep architectures at slight computational cost. SENets formed the foundation of our ILSVRC 2017 classification submission which won first place and significantly reduced the top-5 error to 2.251{\%}, achieving a 25{\%} relative improvement over the winning entry of 2016.},
 archivePrefix = {arXiv},
-arxivId = {1709.01507},
 author = {Hu, Jie and Shen, Li and Sun, Gang},
-eprint = {1709.01507},
 file = {:home/xinglu/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Hu, Shen, Sun - 2017 - Squeeze-and-Excitation Networks.pdf:pdf},
 month = {sep},
 title = {{Squeeze-and-Excitation Networks}},
-
 year = {2017}, 
 journal={arXiv preprint arXiv:1709.01507}
 }
@@ -294,7 +281,7 @@ journal={arXiv preprint arXiv:1709.01507}
   archiveprefix = {arXiv},
   bibsource     = {dblp computer science bibliography, https://dblp.org},
 
-  eprint        = {1704.01285},
+  
   timestamp     = {Wed, 07 Jun 2017 14:40:25 +0200},
 
 }
