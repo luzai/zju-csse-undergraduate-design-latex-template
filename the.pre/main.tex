@@ -40,7 +40,8 @@
 
 \bibliography{./ref.bib}
 \addbibresource{ref.bib}
-
+\usepackage{multirow}
+\usepackage{booktabs}
 \usepackage{indentfirst}
 \usepackage{longtable}
 \usepackage{float}
@@ -172,13 +173,13 @@
 	\end{frame}
 }
 
-% \AtBeginSubsection[2-]
-% {
-%    \begin{frame}
-%        \frametitle{Outline}
-%        \tableofcontents[currentsection]
-%    \end{frame}
-% }
+\AtBeginSubsection[2-]
+{
+   \begin{frame}
+       \frametitle{大纲}
+       \tableofcontents[currentsection]
+   \end{frame}
+}
 
 \begin{frame}
 	\titlepage
@@ -203,9 +204,9 @@
 	\end{figure}
 	\note{
 		随着监控摄像机的大规模安装，摄像机网络已广泛布控于各种公共场合中。
-		
-		利用摄像机网络,我们可以追踪同一行人的轨迹. 
-		
+
+		利用摄像机网络,我们可以追踪同一行人的轨迹.
+
 		但是面对多
 		路监控和海量的视频数据，监控人员很容易 疲惫和应接不暇 ，我们需要智能分析技术 来完成海量的工作
 	}
@@ -219,7 +220,7 @@
 			\item 检测器已经成功检测
 			\item \ie, 再识别{\bf 不包括}检测步骤
 		\end{itemize}
-	% 输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. \cite{zheng2016person},\cite{Zheng2017person}
+		% 输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. \cite{zheng2016person},\cite{Zheng2017person}
 	\end{block}
 	\begin{figure}
 		\includegraphics[width=1\linewidth]{background.png}
@@ -229,25 +230,25 @@
 		我们不讨论行人再识别的定义是否有问题，先遵循普遍接受的定义
 	}
 \end{frame}
-		
+
 
 
 \begin{frame}
 	{行人再识别定义}
 	\begin{block}{行人再识别 (Person Re-identification, \textit{aka.} ReID)}
-		输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. 
+		输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片.
 	\end{block}
 	\begin{columns}
-		\column{0.3\textwidth} 
-		\centering 
+		\column{0.3\textwidth}
+		\centering
 		\includegraphics[width=0.5\linewidth]{2018-03-12-10-05-13.png}
-		\column{0.7\textwidth} 
+		\column{0.7\textwidth}
 		\centering
 		\includegraphics[width=0.72\linewidth]{2018-03-12-09-57-11.png}
 	\end{columns}
 	\note{
 		行人再识别 是图像检索的子问题 , 他是这样的一个过称：
-		
+
 		输入询问图片，如左图所示，在右图测试图像集合中寻找最为匹配的行人图片
 
 		匹配是指达到两点要求：1 两幅图属于同一个人，2 跨摄像头
@@ -257,14 +258,14 @@
 \begin{frame}
 	{行人再识别定义}
 	\begin{block}{行人再识别 (Person Re-identification, \textit{aka.} ReID)}
-		输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. 
+		输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片.
 	\end{block}
 	\begin{figure}
 		\includegraphics[width=0.9\linewidth]{2018-03-11-22-56-05.png}
 	\end{figure}
 	\note{
 		为了说明再识别的困难，我挑选了模型预测的失败案例。
-		
+
 		左侧上方为预测结果，下防为期望的结果。由于询问蹄片特则不明显，测试集合存在大量干扰背景图片，模型的5个预测结果，军错误。背景干扰包括自信车、草地
 	}
 \end{frame}
@@ -278,9 +279,9 @@
 		\item[Pose] \includegraphics[width=0.9\linewidth]{2018-03-12-10-10-18.png}
 		\item[Misalign] \includegraphics[width=0.88\linewidth]{2018-03-07-20-16-25.png}
 	\end{description}
-	
+
 	\note{
-		除背景干扰， 
+		除背景干扰，
 		再识别的难点还有 遮挡、明暗、姿态倒置的行人外观巨大改变，以及由于检测器误差导致的空间适配。
 	}
 \end{frame}
@@ -290,12 +291,247 @@
 \subsection{注意力机制}
 
 \begin{frame}{动机}
-	
+	空间适配导致的失败案例：
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{fig/2018-04-18-21-53-15.png}
+		% \caption{我们的基准模型在手工标注的数据集和行人检测器自动检测的数据集上的典型样例} 
+		\label{fig:label2det}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{方案}
+	提取局部属性特征：
+	\begin{figure}
+		\centering
+		\includegraphics[width=.7\textwidth]{fig/2018-05-11-16-53-10.png}
+		% \caption{兼具提取属性特征作用的残差SE模块}
+		\label{fig:resse}
+	\end{figure}
+	局部与全局特征融合：
+	\begin{figure}
+		\centering
+		\includegraphics[width=.92\textwidth]{fig/2018-05-11-16-54-07.png}
+		% \caption{中层特征与全局特征的融合方式}
+		\label{fig:fusion}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{实验}
+	在数据集CUHK03上的CMC-1,CMC-5,CMC-10性能指标比对:
+	\begin{table}
+		\centering
+		% \caption{在数据集CUHK03上的CMC-1,CMC-5,CMC-10性能指标比对}
+		\scalebox{0.9}{
+			\begin{tabular}{c|ccc|ccc}
+				\hline
+				\multirow{2}*{Methods}                     & \multicolumn{3}{c|}{labelled CUHK03} & \multicolumn{3}{c}{detected CUHK03}                                         \\
+				\cline{2-7} \cline{2-7}                    & r=1                                  & r=5                                 & r=10    & r=1     & r=5     & r=10    \\ \hline
+				KISSME \cite{kissme}                       & 14.17                                & 37.46                               & 52.20   & 11.70   & 33.45   & 45.69   \\
+				LMNN \cite{lmnn}                           & 7.29                                 & 19.64                               & 30.74   & 6.25    & 17.87   & 26.60   \\
+				LOMO+XQDA \cite{xqda}                      & 52.20                                & 82.23                               & 92.14   & 46.25   & 78.90   & 88.55   \\ \hline
+				ImprovedDL \cite{improveddl}               & 54.74                                & 86.50                               & 93.88   & 44.96   & 76.01   & 81.85   \\
+				DCSL (with hnm) \cite{yaqing2016semantics} & 80.20                                & 97.73                               & 99.17   & -       & -       & -       \\
+				JLML \cite{jlml}                           & 83.20                                & 98.00                               & 99.40   & 80.60   & {96.90} & {98.70} \\
+				SC-PPMN (with hnm) \cite{mao2018multi}     & {85.50}                              & {98.20}                             & {99.50} & {80.63} & 95.62   & 98.07   \\ \hline \hline
+				TriHard Baseline                           & 84.91                                & 98.35                               & 99.24   & 81.88   & 96.34   & 98.44   \\
+				+ SE Attention                             & 87.28                                & 98.50                               & 99.18   & 85.50   & 95.90   & 97.69   \\
+				+ Multi-Scale Fusion                       & 88.28                                & 98.44                               & 99.25   & 85.93   & 95.37   & 97.06   \\
+				+ Rerank                                   & 96.34                                & 99.24                               & 99.57   & 91.53   & 98.32   & 98.95   \\ \hline
+			\end{tabular}
+		}
+		\label{tab:cuhk03}
+	\end{table}
+
+\end{frame}
+
+\begin{frame}{实验}
+	在Market1501和DukeMTMC上的CMC-1, mAP性能指标对比:
+	\begin{table}
+		\centering
+		% \caption{在数据集Market1501和DukeMTMC上的CMC-1, mAP性能指标对比}
+		\label{tab:market}
+		\begin{tabular}{c|cc|cc}
+			\hline
+			\multirow{2}*{Method}                & \multicolumn{2}{c|}{Market1501} & \multicolumn{2}{c}{DukeMTMC-ReID}                 \\
+			\cline{2-5} \cline{2-5}              & r=1                             & mAP                               & r=1   & mAP   \\ \hline
+			SomaNet                              & 73.87                           & 47.89                             & 76.70 & 56.80 \\
+			PAN                                  & 82.81                           & 63.35                             & 71.59 & 51.51 \\
+			TriHard in \cite{hermans2017defense} & 82.99                           & 66.63                             & 73.24 & 54.60 \\
+			AWTL                                 & 84.20                           & 68.03                             & 74.23 & 54.97 \\ \hline  \hline
+			TriHard Baseline                     & 84.62                           & 68.68                             & 76.32 & 59.57 \\
+			+ SE Attention                       & 86.79                           & 70.61                             & 77.29 & 61.12 \\
+			+ Multi-Scale Fusion                 & 87.51                           & 72.34                             & 77.12 & 61.64 \\
+			+ Rerank                             & 89.19                           & 85.08                             & 79.39 & 72.57 \\ \hline
+		\end{tabular}
+	\end{table}
 \end{frame}
 
 \subsection{度量学习}
+\begin{frame}{三元损失}
+	\begin{equation}
+		\cL_{\textrm{TriHard}} (\mX, \vtheta) = \sum_{a=1}^{N} \max\left(
+		0, m +
+		{\color{blue}
+		\min_{\substack{
+				p=1...N \\
+				y_a = y_p}
+		} D(\vx_a, \vx_p) }
+		-
+		{ \color{yellow}
+		\max_{ \substack{
+				n=1...N \\
+				y_a \neq y_n }
+		} D(\vx_a,\vx_n) }
+		\right) \label{eq:trihard}
+	\end{equation}
+	\begin{figure}
+		\centering
+		\includegraphics[width=.7\textwidth]{fig/2018-05-19-23-27-39.png}
+		% \caption{从距离矩阵学习的角度理解难样本挖掘三元组损失} 
+		\label{fig:distmat-tri}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{动机}
+	三种损失监督学习得到的特征的可分性与鉴别性：
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.1\textwidth]{fig/2018-05-16-15-03-54.png}
+		% \caption{三种损失函数监督的验证集特征向量和中心向量在2维平面上降维可视化，使用CUHK03数据集和各损失的基准模型得到}
+		\label{fig:losses}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{方案}
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=.65\textwidth]{fig/2018-05-19-22-25-00.png}
+		% \caption{
+		% 	基于对比中心损失的行人再识别总体框图
+		% }
+		\label{fig:dcent}
+	\end{figure}
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\textwidth]{fig/2018-05-19-22-25-11.png}
+		% \caption{
+		% 	\textbf{左图：}对比中心损失示意图；\textbf{右图：}难样本三元损失函数示意图
+		% }
+		\label{fig:dcent2}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{方案}
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\textwidth]{fig/2018-05-19-22-25-11.png}
+		% \caption{
+		% 	\textbf{左图：}对比中心损失示意图；\textbf{右图：}难样本三元损失函数示意图
+		% }
+		% \label{fig:dcent2}
+	\end{figure}
+	\begin{equation}
+		\cL_{\textrm{CCent}} (\mX, \mC, \vtheta) = \frac{1}{2}
+		\sum_{i=1}^{N}
+		\frac{D(
+			\vx_{i}, \vc_{y_i}
+			)}{
+			\displaystyle \lambda_s
+			\min_{\substack{
+					j=1...M \\
+					j \neq y_i }}
+			D(
+			\vx_{i}, \vc_{j}
+			) + 1 }
+		-
+		\lambda_d \sum_{i=1}^{M}  \min_{j=1...M} D(\vc_i,\vc_j)
+		\label{eq:ccent}
+	\end{equation}
+
+\end{frame}
+
+\begin{frame}{实验}
+	在数据集CUHK03上的CMC-1,CMC-5,CMC-10性能指标比对:
+	\begin{table}
+		\centering
+		% \caption{在数据集CUHK03上的CMC-1,CMC-5,CMC-10性能指标比对}
+		\scalebox{0.9}{
+		\begin{tabular}{c|ccc|ccc}
+			\hline
+			\multirow{2}*{Methods}                     &
+			\multicolumn{3}{c|}{labelled CUHK03}       &
+			\multicolumn{3}{c}{detected CUHK03}                                                                    \\
+			\cline{2-7}
+			\cline{2-7}
+			                                           & r=1     & r=5     & r=10    & r=1     & r=5     & r=10    \\ \hline
+			KISSME \cite{kissme}                       & 14.17   & 37.46   & 52.20   & 11.70   & 33.45   & 45.69   \\
+			LMNN \cite{lmnn}                           & 7.29    & 19.64   & 30.74   & 6.25    & 17.87   & 26.60   \\
+			LOMO+XQDA \cite{xqda}                      & 52.20   & 82.23   & 92.14   & 46.25   & 78.90   & 88.55   \\ \hline
+			ImprovedDL \cite{improveddl}               & 54.74   & 86.50   & 93.88   & 44.96   & 76.01   & 81.85   \\
+			DCSL (with hnm) \cite{yaqing2016semantics} & 80.20   & 97.73   & 99.17   & -       & -       & -       \\
+			JLML \cite{jlml}                           & 83.20   & 98.00   & 99.40   & 80.60   & {96.90} & {98.70} \\
+			SC-PPMN (with hnm) \cite{mao2018multi}     & {85.50} & {98.20} & {99.50} & {80.63} & 95.62   & 98.07   \\ \hline
+			\hline
+			Xent                                       & 76.93   & 95.16   & 97.76   & 71.67   & 91.36   & 95.34   \\
+			+LblSmth                                   & 78.64   & 93.96   & 96.78   & 75.87   & 91.53   & 95.15   \\
+			+Cent                                      & 82.21   & 95.55   & 98.39   & 80.12   & 95.38   & 98.11   \\
+			% CCent                                      & 17.51   & 43.11   & 59.72   &         &         &         \\ 	 
+			TriHard                                    & 84.50   & 98.49   & 99.24   & 82.48   & 97.15   & 98.38   \\
+			+CCent                                     & 87.77   & 98.70   & 99.55   & 84.86   & 97.61   & 98.48   \\
+			+CCent+Dis                                 & 88.12   & 98.80   & 99.40   & 84.45   & 97.15   & 98.44   \\   \hline
+			\hline
+		\end{tabular}
+		}
+		\label{tab:cuhk032}
+	\end{table}
+\end{frame}
+
+\begin{frame}{实验}
+	在Market1501和DukeMTMC上的CMC-1, mAP性能指标对比:
+	\begin{table}
+		\centering
+		% \caption{在数据集Market1501和DukeMTMC上的CMC-1, mAP性能指标对比}
+		\label{tab:market2}
+		\begin{tabular}{c|cc|cc}
+			\hline
+			\multirow{2}*{Method}                & \multicolumn{2}{c|}{Market1501} & \multicolumn{2}{c}{DukeMTMC-ReID}                 \\
+			\cline{2-5} \cline{2-5}              & r=1                             & mAP                               & r=1   & mAP   \\ \hline
+			SomaNet \cite{zheng2017ped}            & 73.87 & 47.89           & 76.70 & 56.80 \\
+			PAN \cite{barbosa2017looking}          & 82.81 & 63.35             & 71.59 & 51.51 \\
+			TriHard in \cite{hermans2017defense}   & 82.99 & 66.63       & 73.24 & 54.60 \\
+			AWTL        \cite{ristani2018features} & 84.20 & 68.03          & 74.23 & 54.97 \\ \hline  \hline
+			Xent                                   & 84.92 & 65.15         & 72.44 & 51.16 \\
+			+LblSmth                               & 89.46 & 72.18        & 79.08 & 59.80 \\
+			+Cent                                  & 82.42 & 61.77          & 73.81 & 53.29 \\
+			TriHard                                & 86.55 & 69.98         & 75.08 & 57.10 \\
+			+CCent                                 & 89.12 & 71.57         & 81.54 & 62.33 \\
+			+CCent+Dis                             & 90.37 & 72.94       & 80.36 & 60.87 \\  \hline
+		\end{tabular}
+	\end{table}
+\end{frame}
 
 \section{思考与展望}
+
+\begin{frame}{不变性与同变性}
+	\begin{figure}
+		\centering 
+		\includegraphics[width=.75\textwidth]{2018-05-21-10-51-51.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{显著性与可解释性}
+	\begin{figure}
+		\centering 
+		\includegraphics[width=.47\textwidth]{2018-05-21-09-58-23.png} 
+		\includegraphics[width=.47\textwidth]{2018-05-21-10-31-13.png}
+	\end{figure}
+	% \begin{figure}
+	% 	\centering 
+	% \end{figure}
+\end{frame}
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{参考文献}
@@ -309,7 +545,7 @@
 
 \begin{frame}[fragile]
 	\frametitle{eval protocol}
-\begin{lstlisting}
+	\begin{lstlisting}
 cmc_configs = {
 'cuhk03': dict(separate_camera_set=True,
   single_gallery_shot=True,
