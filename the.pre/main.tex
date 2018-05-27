@@ -9,14 +9,14 @@
 % \usetheme{Singapore}
 % \usetheme{Hannover}
 \usepackage{pgfpages}
-% \setbeameroption{hide notes} % Only slides
+\setbeameroption{hide notes} % Only slides
 % \setbeameroption{show only notes} % Only notes
 % \setbeameroption{show notes on second screen=right} % Both
 
 \usepackage[british]{babel}
 \usepackage{graphicx,hyperref,url, booktabs}
 % \usepackage{ru}
-\usepackage{mmstyles}
+\usepackage{math}
 % \usepackage{hanging}
 \usepackage{listings}
 \usefonttheme[onlymath]{serif}
@@ -31,7 +31,7 @@
 \pgfdeclareimage[width=\paperwidth,height=\paperheight]{bg}{background}
 \setbeamertemplate{background}{\pgfuseimage{bg}}
 
-
+\usepackage{animate}
 % \usepackage[round]{natbib}
 % \bibliographystyle{plainnat}
 % \bibliographystyle{apalike} 
@@ -137,7 +137,7 @@
 % The title of the presentation:
 %  - first a short version which is visible at the bottom of each slide;
 %  - second the full title shown on the title slide;
-\title[毕设开题]{\ahei   毕业论文开题答辩}
+\title[毕设答辩]{\ahei   毕业论文答辩}
 
 % Optional: a subtitle to be dispalyed on the title slide
 \subtitle{\akai  深度行人再识别学习}
@@ -182,10 +182,12 @@
 
 \begin{frame}
 	\titlepage
-	\note{3月16日下午13:00行政楼108，二次开题答辩，每位同学答辩的时间不少于15分钟（含提问），学生陈述时间为8-10分。
-
-	各组答辩结束后，由各答辩组组长录入开题答辩评语和成绩（接学校最新要求开题成绩有变化），成绩总分30分（文献综述10分、开题报告15分、外文翻译5分），开题不通过（总分低于18分）的学生将参加二次开题答辩。参加二次答辩的学生成绩不高于24分（中等）。}
+	\note{2018/06/01--2018/06/08毕业论文答辩。}
 \end{frame}
+
+% \begin{frame}{Embedded Animation}
+%   \animategraphics[loop,controls,width=.6\linewidth]{10}{stn-}{0}{52}
+% \end{frame}
 
 \section{背景介绍与研究内容}
 
@@ -220,7 +222,7 @@
 	% 输入某一行人的询问图片(Probe), 在图像或者视频集合(gallery)中跨摄像头检索所有包含该行人的图片. \cite{zheng2016person},\cite{Zheng2017person}
 	\end{block}
 	\begin{figure}
-		\includegraphics[width=1\linewidth]{2018-03-07-19-55-19.png}
+		\includegraphics[width=1\linewidth]{background.png}
 	\end{figure}
 	\note{
 		目前学术界几乎所有论文都采用这样的前提假设。行人再识别不包括行人检测的步骤。
@@ -278,209 +280,26 @@
 	\end{description}
 	
 	\note{
-		除 背景干扰， 
-		
+		除背景干扰， 
 		再识别的难点还有 遮挡、明暗、姿态倒置的行人外观巨大改变，以及由于检测器误差导致的空间适配。
 	}
 \end{frame}
 
 \section{技术路线与设计方案}
 
-\begin{frame}
-	{相关领域}
+\subsection{注意力机制}
 
-	\begin{columns}
-
-		\column{.4\textwidth}
-		\textcolor{blue}{少样本大规模分类} \\
-		\includegraphics[width=.9\textwidth]{2018-03-15-21-58-23.png} \\
-		\textcolor{blue}{开放环境人脸识别}\\
-		\includegraphics[width=.97\textwidth]{2018-03-15-22-15-55.png}
-		\column{.6\textwidth}
-		\textcolor{blue}{细粒度物体识别} \\
-		\includegraphics[width=\textwidth]{2018-03-15-21-58-38.png}
-
-	\end{columns}
-	{\bf 关键词：} 图像检索, 度量学习, 表征学习. 不均衡学习, \textit{etc.}
-	\note{要了解我们的技术路线,先看一看相关领域,密切相关的领域包括 few-shot extreme classification, openset face recoginition, fine grained classification,我们会从相关领域的文献,借鉴思路}
-\end{frame}
-
-\begin{frame}
-	{相关工作}
-	\begin{itemize}
-		\item {\textcolor{blue}{Identification}} 转化为分类问题: 注意力机制提取特征 \cite{liu2017hydraplus}, \cite{zhao2017spindle}, 全局+局部特征 \cite{wei2017glad}
-		\item {\textcolor{blue}{Verification}} 转化为两幅图片的验证问题/Verification: \cite{Yaqing2016}
-		\item {\textcolor{blue}{Embedding}} 直接学习低维嵌入特征: 在三元损失的基础上强掉难样本的重要性\cite{hermans2017defense}, 全局+局部特征\cite{zhang2017align}, 注意力机制\cite{DBLP:journals/corr/ZhaoLWZ17} 
-	\end{itemize}
-	\note{对于行人再识别这一领域主流方法分为三类,
+\begin{frame}{动机}
 	
-	第一类转化为分类问题方法缺点在于样本不丰富情况下鉴别能力不足,
-
-	第二类转化为验证问题缺点在于计算量巨大
-
-	我们采用直接学习嵌入特征的方法,首先简单介绍我们的基础模型
-}
 \end{frame}
 
-\begin{frame}
-	{基本方法:训练} 
-	\begin{columns}
-	\column{0.45\textwidth} 
-	\begin{itemize}
-		\item \textbf{特征提取}
-		\item 难样本挖掘
-		\item 计算损失,反向传播
-	\end{itemize}
-	\column{0.55\textwidth}
-	\begin{figure}
-		\centering
-		\includegraphics[width=\textwidth]{2018-03-15-21-40-06.png}			
-	\end{figure}
+\subsection{度量学习}
 
-	\end{columns} 
-	\note{只需看主干支路即可,从图片输入,特征提取,挖掘难样本,到计算损失, 特征提取采用resnet}
-\end{frame}
-
-\begin{frame}
-	{基本方法:训练}
-	\begin{columns}
-		\column{0.4\textwidth}
-	\begin{itemize}
-		\item 特征提取
-		\item {\bf 难样本挖掘}
-		\item 计算损失,反向传播
-	\end{itemize}
-	\column{0.6\textwidth}
-	\begin{figure}
-		\centering
-		\includegraphics[width=\textwidth]{2018-03-12-14-59-27.png}
-	\end{figure}
-	\note{我们要实现的目标是,属于同一类的距离尽量接近,如图所示冷色掉表示距离小.
-	也就诉说,目标是从左侧的杂乱无章到右侧的分清类别. 那么为什么要进行难样本挖掘, 因为整个距离矩阵不是所有元素都需要更新的,我们要用最快的速度获得最好的性能. 
-	}
-\end{columns} 
-
-	\note{分别是什么}
-\end{frame}
-
-\begin{frame}
-	{基本方法:训练} 
-	\begin{itemize}
-		\item 特征提取
-		\item 难样本挖掘
-		\item {\bf 计算损失,反向传播}
-		\begin{equation} 
-			L_{tri}=\frac{1}{PK}\sum_{a \in batch} \left(
-				 \textcolor{blue}{\max_{p \in A} d_{a,p}} - 
-				  \textcolor{green}{\min_{n \in B} d_{a,n}} +\alpha \right)_+
-		\end{equation}
-	\end{itemize}
-	\note{在之前的步骤中,距离矩阵每一行会选择处两个样本对,计算相对距离,从而计算损失,反向传播}
-\end{frame}
-
-\begin{frame}
-	{基本方法:测试} 
-	\begin{itemize}
-		\item 数据增强({\bf 随机擦除/多次截取}), 特征提取
-		\item 计算欧式或余弦距离矩阵
-		\item {\bf 重排序}\cite{zhong2017reranking}, 预测最终排名
-	\end{itemize}
-	\note{随机擦除,random erasing, 重排序 rerank, 使用}
-\end{frame}
-
-% \begin{frame}
-% 	{设计方案}
-% 	\begin{itemize}
-% 		\item  多尺度注意力特征
-% 		\item 根据关系图在全局挖掘难样本
-% 	\end{itemize}
-% \end{frame}
-
-\begin{frame}
-	{方案:多尺度注意力特征}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.78\textwidth]{2018-03-12-11-10-16.png} \\ 
-		\includegraphics[width=0.89\textwidth]{2018-03-12-11-10-04.png} 
-	\end{figure}
-	\note{上策为基础模块,瞎扯为总体框架. 基础模块具有两个功能,1 通道级别调整权重实行注意力机制, 2 提取本阶段分辨率下的全局特征表示,总体框架中将各个阶段特征表示拼接 值得注意的是,我们几乎没有增加计算量}
-\end{frame}
-
-\begin{frame}
-	{方案:根据关系图在全局挖掘难样本} 
-	\begin{figure}
-		\centering 
-		\includegraphics[width=0.9\textwidth]{2018-03-12-11-21-00.png}	
-		\caption{不同的形成batch的方法:\textcolor{blue}{左图:}一般的三元损失随机选取三元组,\textcolor{blue}{中图:}\cite{hermans2017defense}在保证一个类至少两个样本的情况下随机选取,\textcolor{blue}{右图:}我们希望在形成batch时难样本就不是随机选取的}
-	\end{figure}
-	\note{全局挖掘,利用历史损失函数体攻的信息,在形成batch的时候,选取有正对性的难样本 同样我们也没有增加计算量 }
-\end{frame}
-
-
-\section{进度安排与预期目标}
-\begin{frame}
-	{进度安排}
-\begin{table}
-	\begin{tabular}{ll}
-		\toprule
-		2017/11/18--2017/12/18  & 调研文献, 制定规划                                        \\
-		2017/12/18--2018/01/19 & 实现基准模型: TriHard \cite{hermans2017defense} \\
-		2018/01/19--2018/03/30 & 注意力机制和难样本挖掘的初步探索                                                \\
-		2018/03/30--2018/05/16 & 在难样本挖掘方面进一步探索                                                \\
-		2018/05/16--2018/06/08 & 撰写毕业论文，答辩                              \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-	\note{
-		前两阶段已经完成,
-
-		很难说方向一定可行,但是之后会找这两个方向开展	
-	}
-\end{frame}
-
-
-\begin{frame}{现阶段实验}
-	\begin{table}
-		\begin{tabular}{lrrr}
-			\toprule
-			{name} &  top-1 &  top-1.rk &    mAP \\
-			\midrule
-			cuhk03label.res             &  86.28 &     93.88 &  82.49 \\
-			cuhk03label.se.concat       &  89.33 &     96.34 &  86.42 \\
-			cuhk03label.se.concat.dop   &  89.83 &     \textbf{97.59} &  86.70 \\
-			cuhk03label.res.dop         &  86.84 &     94.66 &  84.18 \\
-			cuhk03label.se              &  88.28 &     95.51 &  84.74 \\
-			cuhk03detect.res            &  82.79 &     91.11 &  80.08 \\
-			cuhk03detect.se.concat      &  84.68 &     91.78 &  81.68 \\
-			cuhk03detect.se.concat.dop  &  85.65 &     92.15 &  82.91 \\
-			cuhk03detect.se             &  85.50 &     92.84 &  82.78 \\
-			cuhk03detect.se.concat.35   &  85.03 &     92.09 &  82.65 \\
-			cuhk03detect.se.concat.45   &  85.01 &     92.66 &  82.65 \\
-			cuhk03detect.se.sum         &  84.75 &     91.22 &  82.06 \\
-			cuhk03detect.se.sum.dop     &  85.93 &     91.53 &  83.21 \\
-			cuhk03detect.res.new\_avg    &  83.61 &     90.29 &  81.28 \\
-			cuhk03detect.res.dop        &  83.70 &     91.85 &  80.78 \\			
-			market1501.res              &  85.61 &     86.12 &  69.53 \\
-			market1501.se               &  87.47 &     87.85 &  72.27 \\
-			market1501.se.concat        &  87.42 &     87.47 &  72.16 \\
-			market1501.se.concat.dop    &  88.53 &     89.40 &  72.86 \\
-			market1501.res.dop          &  86.73 &     87.39 &  70.91 \\
-			market1501.se.sum           &  87.21 &     87.42 &  71.69 \\
-			market1501.se.sum.dop       &  87.70 &     88.06 &  71.95 \\
-			\bottomrule
-			\end{tabular}
-	\end{table}
-	\note{在寒假我进行了初步实验,有的效果好,有的效果一般. 期中97.59,已经超过了人类表现,据我了解目前只有两篇文章做到这一点. 从效果来说,挖掘难样本具有可行性,改改网络结构效果不明显. 但是也不仅仅是效果,需要阅读文献,提出新的想法
-	行人再识别发展很快,除去传统数据集,今年提出了新的问题和新的数据集,因此,我还有很多工作要做}
-\end{frame}
-
+\section{思考与展望}
 
 \begin{frame}[t, allowframebreaks]
-
-\frametitle{参考文献}
-
-
-\printbibliography
+	\frametitle{参考文献}
+	\printbibliography
 \end{frame}
 
 \begin{frame}
@@ -488,29 +307,8 @@
 \end{frame}
 
 
-
-\begin{frame}{现阶段实验}
-	\begin{table}
-		\centering
-		\caption{数据集与评估协议的统计信息}
-		\label{table:dataset}
-		\begin{tabular}{llllll}
-			\toprule
-			Dataset    & CUHK03 & Market1501 & CUHK01  & DukeMTMC & VIPeR \\
-			\midrule
-			identities & 1,467  & 1,501      & 971     & 1,812    & 632   \\
-			images     & 13,164 & 32,668     & 3,884   & 36,411   & 1,264 \\
-			views      & 2      & 6          & 2       & 8        & 2     \\
-			train IDs  & 1,367  & 751        & 871/485 & 702      & 316   \\
-			test IDs   & 100    & 751        & 100/486 & 1110     & 316   \\
-			\bottomrule
-		\end{tabular}
-	\end{table}
-	\note{行人再识别发展很快,除去传统数据集,今年提出了新的问题和新的数据集,因此,我还有很多工作要做}
-\end{frame}
-
 \begin{frame}[fragile]
-	
+	\frametitle{eval protocol}
 \begin{lstlisting}
 cmc_configs = {
 'cuhk03': dict(separate_camera_set=True,
