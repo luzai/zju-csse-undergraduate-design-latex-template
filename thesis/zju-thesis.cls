@@ -89,9 +89,10 @@
 \newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\CJKfontspec[AutoFakeBold=false]{\fangfont}}
 \newcommand{\bfxs}{\fontsize{12pt}{\baselineskip}\CJKfontspec[AutoFakeBold=4]{\fangfont}\bfseries}
 \newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\CJKfontspec[AutoFakeBold=false]{\fangfont}}
-\RequirePackage[left=2.5cm,right=2.0cm,top=2.5cm,bottom=2.0cm]{geometry}
+%  \RequirePackage[left=2.5cm,right=2.0cm,top=2.5cm,bottom=2.0cm]{geometry}
+\RequirePackage[left=2.25cm,right=2.25cm,top=2.5cm,bottom=2.0cm]{geometry}
 
-\renewcommand{\title}[2]{\gdef\titleown{#1}\gdef\titlezju{#2}}
+\renewcommand{\title}[2]{\gdef\titleownraw{#1}\gdef\titleown{\renewcommand\\{} #1}\gdef\titlezju{#2}}
 \ifzju@blind%
     \renewcommand{\author}[2]{\gdef\name{\relax}\gdef\stuid{\relax}}
     \newcommand{\grade}[2]{\gdef\grade{\relax}\gdef\major{\relax}}
@@ -116,6 +117,13 @@
 \renewcommand{\headrulewidth}{0.7pt} % no line
 \renewcommand{\footrulewidth}{0pt} % no line
 \fancyhead[R]{\titleown}
+}
+\fancypagestyle{rightpage}{%
+\fancyhf{} % clear fields
+\renewcommand{\headrulewidth}{0.7pt} % no line
+\renewcommand{\footrulewidth}{0pt} % no line
+\fancyhead[R]{\titleown}
+  \fancyfoot[C]{\thepage}
 }
 \fancypagestyle{promise}{%
 \fancyhf{} % clear fields
@@ -170,12 +178,17 @@ linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
 % \newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
 % \else
 % \RequirePackage[backend=biber,citestyle=authoryear,sortcites=true,natbib,sorting=nyt,style=apa]{biblatex}
-\RequirePackage[style=numeric,
+\RequirePackage[
+            % style=numeric,
             backend=biber,
             % sorting=none,
             style=gb7714-2015,
             bibstyle=gb7714-2015,
-            citestyle=gb7714-2015]{biblatex}
+            citestyle=gb7714-2015,
+            gbnamefmt=lowercase,
+            url=false,
+            doi=false
+            ]{biblatex}
 % \fi
 %% set citation color as blue
 % \DeclareCiteCommand{\textcite}
@@ -303,7 +316,7 @@ linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
 %   \section{#1}
 %   \markboth{#1}{#1}
 % }
-
+\tocloftpagestyle{rightpage}
 \titleformat{name=\chapter,numberless}{\chap\centering}{}{1em}{#1}
 \preto{\chapter}{\def\leveltitle{\chaptertitle}}
 \pretocmd{\@schapter}
@@ -323,11 +336,19 @@ linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
       \chapter*{摘\hspace*{1em}要}
       %\addcontentsline{toc}{chapter}{摘要}
   }
+  \thispagestyle{rightpage}
+  % \newpage
+  % {
+  % \thispagestyle{followingpage}
+  % \vfill
+  % \clearpage 
+  % }
 }{%
 }
 \newenvironment{acknowledgement}{%
   \chapter*{致\hspace*{1em}谢}
   %\addcontentsline{toc}{chapter}{致谢}
+  \thispagestyle{rightpage}
 }{%
 }
 
@@ -340,6 +361,7 @@ linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
     {}{}% <success><failure>
   \oldtableofcontents%
   \endgroup%
+  \thispagestyle{rightpage}
 }
 \makeatother
 \addto\captionsamerican{\renewcommand{\contentsname}{\centerline{目\hspace*{1em}录}}}
@@ -355,6 +377,7 @@ linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
 \newenvironment{resume}
 {
   \chapter*{作者简历}
+  \thispagestyle{rightpage}
   \addcontentsline{toc}{chapter}{作者简历}
 }{}
 \RequirePackage{graphicx}
@@ -393,9 +416,9 @@ linkcolor=blue,anchorcolor=violet,citecolor=magenta]{hyperref}
     {\small{\bfseries 涉密论文$\Box$公开论文$\Box$}}\\
 \includegraphics[width=0.8\textwidth]{../assets/zju-text.png}
 \\[1.2\baselineskip]
-{\Huge{\hei\bfseries {本\hp 科\hp 生\hp 毕\hp 业\hp 论\hp 文（设\hp 计）}}}\\[1.2\baselineskip] % Title
+{\Huge{\hei\bfseries {本\hp 科\hp 生\hp 毕\hp 业\hp 论\hp 文}}}\\[1.2\baselineskip] % Title
 \includegraphics[width=0.32\textwidth]{../assets/zju-xiaohui.jpg}\\[1\baselineskip]
-        \chap{题目}\ \underline{\makebox[11cm][c]{\chap\titleown}} \\[1.3\baselineskip]
+\chap{题目}\ \underline{\makebox[11cm][c]{\shortstack{\chap\titleownraw}}} \\[1.3\baselineskip]
 \begin{table}[h!]
   \begin{center}
 \begin{tabular}{ll}

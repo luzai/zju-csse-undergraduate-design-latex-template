@@ -10,5 +10,5 @@ while [ 1 ] ;  do
   #   make
   # done
   make 
-  sleep 300
+  sleep 10
 done

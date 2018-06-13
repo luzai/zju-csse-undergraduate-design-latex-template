@@ -1,8 +1,8 @@
 main:
-	xelatex  -interaction=nonstopmode -halt-on-error main
+	xelatex -synctex=1 -interaction=nonstopmode -halt-on-error main
 	biber main
-	xelatex  -interaction=nonstopmode -halt-on-error main
-	xelatex  -interaction=nonstopmode -halt-on-error main
+	xelatex -synctex=1 -interaction=nonstopmode -halt-on-error main
+	xelatex -synctex=1 -interaction=nonstopmode -halt-on-error main
 	# cp main.pdf proposal.xinglu.pdf
 clean:
 	# git clean -dfX

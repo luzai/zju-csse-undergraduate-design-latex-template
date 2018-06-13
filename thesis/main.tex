@@ -15,7 +15,7 @@
 \title{深度行人再识别学习}{浙江大学本科生毕业论文}
 \author{王兴路}{3140102282}
 \grade{2014 级}{信息工程}
-\mentor{李英明}
+\mentor{}
 \school{信息与电子工程学院}
 \date{2018年6月}
 \let\cite\parencite
@@ -23,52 +23,75 @@
 \begin{document}
 % \makecover
 
-\begin{abstract}
-	行人再识别旨在跨摄像头检索行人图片，在本次毕设中，我们提出了基于注意力机制的多尺度特征融合和基于对比中心损失的度量学习方法。
-	通过可视化失败案例，我们发现在失配严重的数据集上简单地使用全局特征和局部属性特征拼接反而会造成性能下降。
-	于是我们提出了对局部特征进行属性提取来应对失配问题的方法，
-	通过合理地使用注意力机制，我们在计算量没有大幅增加的情况下，获得了性能的提升。
-	基于难样本挖掘的三元损失虽然取得了较好的效果，但是通过降维可视化发现该损失只关注局部特性，导致同一行人的两个摄像机视角常常聚成两个类别。
-	于是我们提出了对比中心损失，灵活地进一步缩小类内间距。
-	我们在不同大小、难度和类型的数据集上对提出的两种方法进行了实验，性能普遍获得了提升。
+% \begin{abstract}
+% 	行人再识别旨在跨摄像头检索行人图片。在本次毕设中，我们提出了基于注意力机制的多尺度特征融合和基于对比中心损失的度量学习方法。
+% 	在失配严重的数据集上现有模型性能会下降，在可视化了一些案例案例之后，我们提出了对融合局部特征、有选择地提取属性特征和语义部件的方法，来应对失配问题。
+% 	通过合理地使用注意力机制，我们在计算量没有大幅增加的情况下，获得了性能的提升。
+% 	基于难样本挖掘的三元损失虽然取得了较好的效果，但是通过降维可视化发现该损失只关注局部特性，导致同一行人的两个摄像机视角常常聚成两个类别。
+% 	于是我们提出了对比中心损失，灵活地进一步缩小类内间距。
+% 	我们在不同大小、难度和类型的数据集上对提出的两种方法进行了实验，性能普遍获得了提升。
 
-	\keywords{行人再识别，注意力机制，度量学习}
-	\end{abstract}
-\begin{abstract}[en]
-	Person re-identification (Person-ReID) aims to search people across non-overlapping surveillance camera views. In this thesis, we propose Multi-scale Feature Fusion based on Attention Mechanism and Contrastive Center Loss for Person-ReID. 
-	Via observing visual failure case, we notice that simply concatenating local and global features sometimes causes performance degradation. To cope with this problem, we propose to extract attributes features of interest by channel level attention. 
-	Triplet Loss based on hard example mining with mini-batch boost the performance, however, it fails to further decrease variance across camera view for Person-ReID task. We propose an auxiliary supervision signal, \ie, Contrastive Center Loss to help learn a better feature representation.
+% 	\keywords{行人再识别，注意力机制，度量学习}
+% 	\end{abstract}
+
+% \clearpage
+% \newpage
+% \mbox{~}
+% \clearpage
+% \newpage
+
+% \begin{abstract}[en]
+% 	Person re-identification (Person-ReID) aims to search people across non-overlapping surveillance camera views. In this thesis, we propose Multi-scale Feature Fusion based on Attention Mechanism and Contrastive Center Loss for Person-ReID. 
+% 	Via observing visual failure case, we notice that simply concatenating local and global features sometimes causes performance degradation. To cope with this problem, we propose to extract attributes features of interest by channel level attention. 
+% 	Triplet Loss based on hard example mining with mini-batch boost the performance, however, it fails to further decrease variance across camera view for Person-ReID task. We propose an auxiliary supervision signal, \ie, Contrastive Center Loss to help learn a better feature representation.
 	
-	\keywords{Person-ReID, Attention Mechanism, Metric Learning}
-\end{abstract}
-	
+% 	\keywords{Person-ReID, Attention Mechanism, Metric Learning}
+% \end{abstract}
+% \clearpage
+% \newpage
+% \mbox{~}
+% \clearpage
+% \newpage
+
+\includepdf[fitpaper=true,pages=-]{assets/before.pdf}
 
 \tableofcontents
+% \clearpage
+% \newpage
+% \mbox{~}
+% \clearpage
+% \newpage
+
 \begin{refsection}
 	% part I
 	% \titleformat{\chapter}
 	%   {\chap}{\thechapter}{1em}{}
 	% \titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
-	%
-	% \part{毕业论文}
-
+	\part{毕业论文}
 	\input{thesis.tex}
 \end{refsection}
-% \includepdf[fitpaper=true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
-% 	1, alonepage, 1, 《浙江大学本科生毕业论文（设计）任务书》, task
-% }]{assets/official-1-task.pdf}
-% \includepdf[fitpaper=true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
-% 	1, alonepage, 1, 《浙江大学本科生毕业论文（设计）考核表》,assess
-% }]{assets/official-11-assess.pdf}
-% \part{文献综述和开题报告}
-% \renewcommand\thechapter{\zhnum{chapter}、} 
-% \includepdf[fitpaper= true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
-% 	1, alonepage, 1, 文献综述和开题报告封面, cover,
-% 	1, alonepage, 1, 指导教师对文献综述和开题报告具体内容要求, cover,
-% 	1, contabpage, 1, 目录,con,
-% 	1, chapter, 1, 文献综述,s1,
-% 	5, chapter, 1, 开题报告,s2,
-% 	6, chapter, 1, 外文翻译,s3, 
-% 	7, chapter, 1, 外文原文,s4,
-% 	8, alonepage, 1, 《浙江大学本科生文献综述和开题报告考核表》,s5}]{../proposal/main.pdf}
+
+% addtotoc={⟨page number ⟩,⟨section ⟩,⟨level ⟩,⟨heading ⟩,⟨label ⟩}
+\includepdf[fitpaper=true,pages=-]{assets/cv.pdf}
+\includepdf[fitpaper=true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
+	1, alonepage, 1, 《浙江大学本科生毕业论文（设计）任务书》, task
+}]{assets/task.pdf}
+\includepdf[fitpaper=true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
+	1, alonepage, 1, 《浙江大学本科生毕业论文（设计）考核表》,assess
+}]{assets/kaohe.pdf}
+\includepdf[fitpaper=true,pages=-]{assets/review1.pdf}
+\includepdf[fitpaper=true,pages=-]{assets/review2.pdf}
+\includepdf[fitpaper=true,pages=-]{assets/record.pdf}
+
+\part{文献综述和开题报告}
+\renewcommand\thechapter{\zhnum{chapter}、} 
+\includepdf[fitpaper= true,pages=-,pagecommand={\thispagestyle{empty}},addtotoc={
+	1, alonepage, 1, 文献综述和开题报告封面, cover,
+	2, alonepage, 1, 指导教师对文献综述和开题报告具体内容要求, cover,
+	3, alonepage, 1, 目录, con,
+	5, chapter, 1, 文献综述,s1,
+	14, chapter, 1, 开题报告,s2,
+	21, chapter, 1, 外文翻译,s3, 
+	27, chapter, 1, 外文原文,s4,
+	38, alonepage, 1, 《浙江大学本科生文献综述和开题报告考核表》,s5}]{../proposal/main.pdf}
 \end{document}
